@@ -71,7 +71,7 @@ function id(f) {
 
 function composition(f, g) {
   return function(a) {
-    return g(f(a));
+    return f(g(a));
   };
 };
 
