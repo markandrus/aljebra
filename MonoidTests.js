@@ -65,5 +65,49 @@ for (var instance in instances) {
 // Left Identity Law
 // =================
 
+function LeftIdentityLaw (instance) {
+  console.log("\tLeft Identity Law");
+  var check = true;
+  for (var a in instance.domain) {
+    var A = new instance.constructor(instance.domain[a]);
+    check = check && instance.check
+      ( instance.constructor.zero().concat(A)
+      , A
+      );
+  }
+  if (check)
+    console.log("\t\tPassed");
+  else
+    console.log("\t\tFailed");
+}
+
+for (var instance in instances) {
+  console.log("Monoid Instance: " + instance);
+  LeftIdentityLaw(instances[instance]);
+  console.log();
+}
+
 // Right Identity Law
 // ==================
+
+function RightIdentityLaw (instance) {
+  console.log("\tRight Identity Law");
+  var check = true;
+  for (var a in instance.domain) {
+    var A = new instance.constructor(instance.domain[a]);
+    check = check && instance.check
+      ( A.concat(instance.constructor.zero())
+      , A
+      );
+  }
+  if (check)
+    console.log("\t\tPassed");
+  else
+    console.log("\t\tFailed");
+}
+
+for (var instance in instances) {
+  console.log("Monoid Instance: " + instance);
+  RightIdentityLaw(instances[instance]);
+  console.log();
+}
