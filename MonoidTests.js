@@ -19,7 +19,7 @@ var laws = {
   ],
   'Left Identity': [
     function(a) {
-      return a.concat((a.constructor.zero || a.zero)());
+      return (a.constructor.zero || a.zero)().concat(a);
     },
     function(a) {
       return a;
@@ -27,7 +27,7 @@ var laws = {
   ],
   'Right Identity': [
     function(a) {
-      return (a.constructor.zero || a.zero)().concat(a);
+      return a.concat((a.constructor.zero || a.zero)());
     },
     function(a) {
       return a;
@@ -45,15 +45,8 @@ function simple(a, b) {
   return a.value === b.value;
 }
 
-function array(a, b) {
-  if (a.length !== b.length) {
-    return false;
-  }
-  for (var i=0; i<a.length; i++) {
-    if (a[i] !== b[i])
-      return false;
-  }
-  return true;
+function complex(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
 }
 
 // Instances
@@ -73,7 +66,28 @@ var instances = {
   Array: {
     constructor: Monoid.instances.Array,
     domain: [[1,2], [3,4]],
-    check: array
+    check: complex
+  },
+  Endo: {
+    constructor: Monoid.instances.Endo,
+    domain: [ function double (x) {
+                return x + x;
+              }
+            , function square (x) {
+                return x * x;
+              }
+            ],
+    check: complex
+  },
+  Product: {
+    constructor: Monoid.instances.Product,
+    domain: [1,2,3,4],
+    check: simple
+  },
+  Sum: {
+    constructor: Monoid.instances.Sum,
+    domain: [1,2,3,4],
+    check: simple
   }
 };
 
@@ -91,7 +105,7 @@ function tuples(n, domain) {
     if (++as[i] === b) {
       as[i] = 0;
       if (i+1 < as.length)
-        as = next(as, i+1, b)
+        as = next(as, i+1, b);
     }
     return as;
   }
@@ -136,7 +150,7 @@ function TestLaw(law, instance) {
     , pass = true;
   for (var i=0; i<es.length-1; i++) {
     for (var j=0; j<es[i].length; j++) {
-      pass = pass & instance.check(es[i][j], es[i+1][j])
+      pass = pass & instance.check(es[i][j], es[i+1][j]);
     }
   }
   if (pass)

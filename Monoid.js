@@ -20,7 +20,7 @@ function Monoid(zero, concat) {
   };
   MonoidInstance.prototype.constructor.zero = function() {
     return new MonoidInstance();
-  }
+  };
   return MonoidInstance;
 }
 
@@ -71,7 +71,7 @@ function id(f) {
 
 function composition(f, g) {
   return function(a) {
-    return g(f(a));
+    return f(g(a));
   };
 };
 
