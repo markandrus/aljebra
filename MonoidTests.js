@@ -23,6 +23,11 @@ var instances = {
     constructor: Monoid.instances.Array,
     domain: [[1,2], [3,4]],
     check: simple
+  },
+  Dual: {
+    constructor: Monoid.instances.Array,
+    domain: [[1,2], [3,4], [5,6]],
+    check: simple
   }
 };
 
