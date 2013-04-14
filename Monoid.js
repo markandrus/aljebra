@@ -1,17 +1,15 @@
 // Monoid.js 0.0.1
 // ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 
-// (ɔ) 2013 Mark Andrus Roberts
 // Instances borrowed from the Haskell Prelude.
-// Fantasy Land conformant.
-// https://github.com/pufuwozu/fantasy-land/blob/master/logo.png
+// Conforms to the Fantasy Land Specification.
 
 (function() {
 
 // Constructor
 // ===========
 
-// Create a Monoid instance from a `zero` value and `concat` function.
+// Construct a Monoid instance from a `zero` value and `concat` function.
 
 function Monoid(zero, concat) {
   function MonoidInstance(a) {
@@ -31,33 +29,6 @@ function Monoid(zero, concat) {
 // Instances
 // =========
 
-// Dual
-// ----
-
-// Create the dual of a Monoid instance by swapping the arguments of its
-// `concat` function.
-
-function Dual(monoid) {
-  return new Monoid(monoid.constructor.zero || monoid.zero, function(a, b) {
-    return b.concat(a);
-  });
-}
-
-// Endo
-// ----
-
-function id(f) {
-  return f;
-};
-
-function composition(f, g) {
-  return function(a) {
-    return g(f(a));
-  };
-};
-
-var Endo = new Monoid(id, composition);
-
 // All
 // ---
 
@@ -72,25 +43,47 @@ var Any = new Monoid(false, function(a, b) {
   return a || b;
 });
 
-// Optional
-// --------
+// Array
+// -----
 
-var Optional = new Monoid(undefined, function(a, b) {
-  return typeof a === 'undefined' ? b : a;
-});
+Array.prototype.constructor.zero = function() {
+  return new Array();
+};
+
+// Dual
+// ----
+
+// Construct the dual of a Monoid instance by swapping the arguments of its
+// `concat` function.
+
+function Dual(monoid) {
+  return new Monoid(monoid.constructor.zero || monoid.zero, function(a, b) {
+    return b.concat(a);
+  });
+}
+
+// Endo
+// ----
+
+// "The monoid of endomorphisms under composition."
+
+function id(f) {
+  return f;
+};
+
+function composition(f, g) {
+  return function(a) {
+    return g(f(a));
+  };
+};
+
+var Endo = new Monoid(id, composition);
 
 // Product
 // -------
 
 var Product = new Monoid(1, function(a, b) {
   return a * b;
-});
-
-// Set
-// ---
-
-var Set = new Monoid([], function(a, b) {
-  return a.concat(b);
 });
 
 // Sum
@@ -107,13 +100,12 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports =
     { constructor : Monoid
     , instances   :
-      { Any      : Any
-      , All      : All
+      { All      : All
+      , Any      : Any
+      , Array    : Array
       , Dual     : Dual
       , Endo     : Endo
-      , Optional : Optional
       , Product  : Product
-      , Set      : Set
       , Sum      : Sum
       }
     };
