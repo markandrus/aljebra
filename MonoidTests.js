@@ -68,10 +68,26 @@ var instances = {
     domain: [[1,2], [3,4]],
     check: complex
   },
-  Dual: {
-    constructor: Monoid.instances.Array,
-    domain: [[1,2], [3,4]],
+  Endo: {
+    constructor: Monoid.instances.Endo,
+    domain: [ function double (x) {
+                return x + x;
+              }
+            , function square (x) {
+                return x * x;
+              }
+            ],
     check: complex
+  },
+  Product: {
+    constructor: Monoid.instances.Product,
+    domain: [1,2,3,4],
+    check: simple
+  },
+  Sum: {
+    constructor: Monoid.instances.Sum,
+    domain: [1,2,3,4],
+    check: simple
   }
 };
 
