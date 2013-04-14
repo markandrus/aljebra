@@ -1,12 +1,63 @@
-// MonoidInstanceTests.js 0.0.1
-// ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+// MonoidTests.js 0.0.1
+// ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 
 // Tests for the instances defined in `./Monoid.js'.
 
-// NOTE: Trying to generalize the code here...
+var Monoid = require('./Monoid.js');
 
-var Monoid = require('./Monoid.js'),
-    simple = function(a, b) { return a === b; };
+// Laws
+// ====
+
+var laws = {
+  'Associativity': [
+    function(a, b, c) {
+      return a.concat(b).concat(c);
+    },
+    function(a, b, c) {
+      return a.concat(b.concat(c));
+    }
+  ],
+  'Left Identity': [
+    function(a) {
+      return a.concat((a.constructor.zero || a.zero)());
+    },
+    function(a) {
+      return a;
+    }
+  ],
+  'Right Identity': [
+    function(a) {
+      return (a.constructor.zero || a.zero)().concat(a);
+    },
+    function(a) {
+      return a;
+    }
+  ]
+};
+
+// Tests
+// =====
+
+// Equality
+// --------
+
+function simple(a, b) {
+  return a.value === b.value;
+}
+
+function array(a, b) {
+  if (a.length !== b.length) {
+    return false;
+  }
+  for (var i=0; i<a.length; i++) {
+    if (a[i] !== b[i])
+      return false;
+  }
+  return true;
+}
+
+// Instances
+// ---------
 
 var instances = {
   All: {
@@ -22,43 +73,91 @@ var instances = {
   Array: {
     constructor: Monoid.instances.Array,
     domain: [[1,2], [3,4]],
-    check: simple
+    check: array
   }
 };
 
-// Associativity Law
-// =================
+// Test Runners
+// ============
 
-function AssociativityLaw(instance) {
-  console.log("\tAssociativity Law");
-  var check = true;
-  for (var a in instance.domain) {
-    for (var b in instance.domain) {
-      for (var c in instance.domain) {
-        var A = new instance.constructor(instance.domain[a])
-          , B = new instance.constructor(instance.domain[b])
-          , C = new instance.constructor(instance.domain[c]);
-        check = check && instance.check
-          ( A.concat(B).concat(C)
-          , A.concat(b.concat(C))
-          );
-      }
+// Create `n`-tuples of values in `domain`.
+
+function tuples(n, domain) {
+
+  // Calculate the next `n`-tuple of indices from zero to `b-1`, inclusive.
+  // Returns a new `n`-tuple.
+  function next(as, i, b) {
+    as = as.slice(0);
+    if (++as[i] === b) {
+      as[i] = 0;
+      if (i+1 < as.length)
+        as = next(as, i+1, b)
+    }
+    return as;
+  }
+
+  // An `n`-tuple and a list of `n`-tuples.
+  var tuple  = []
+    , tuples = [];
+
+  for (var i=0; i<n; i++)
+    tuple.push(0);
+
+  // Generate all `n`-tuples of indices into `domain`.
+  for (var i=0; i<Math.pow(domain.length, n); i++) {
+    tuples.push(tuple);
+    tuple = next(tuple, 0, domain.length);
+  }
+
+  // Index into `domain`.
+  return tuples.map(function(tuple) {
+    return tuple.map(function(i) {
+      return domain[i];
+    });
+  });
+
+}
+
+function TestLaw(law, instance) {
+  var ts = tuples
+    ( law[0].length
+    , instance.domain
+    ).map(function(tuple) {
+      return tuple.map(function(a) {
+        return new instance.constructor(a);
+      });
+    });
+  var es = law.map(function(e) {
+      return ts.reduce(function(a, tuple) {
+        a.push(e.apply(undefined, tuple));
+        return a;
+      }, []);
+    })
+    , pass = true;
+  for (var i=0; i<es.length-1; i++) {
+    for (var j=0; j<es[i].length; j++) {
+      pass = pass & instance.check(es[i][j], es[i+1][j])
     }
   }
-  if (check)
-    console.log("\t\tPassed");
+  if (pass)
+    console.log("    Pass");
   else
-    console.log("\t\tFailed");
+    console.log("    Fail");
 }
 
-for (var instance in instances) {
-  console.log("Monoid Instance: " + instance);
-  AssociativityLaw(instances[instance]);
-  console.log();
+function TestLaws(laws, instance) {
+  for (var name in laws) {
+    console.log("  " + name);
+    TestLaw(laws[name], instance);
+    console.log();
+  }
 }
 
-// Left Identity Law
-// =================
+function TestInstances(laws, instances) {
+  for (var name in instances) {
+    console.log(name);
+    TestLaws(laws, instances[name]);
+  }
+}
 
-// Right Identity Law
-// ==================
+TestInstances(laws, instances);
