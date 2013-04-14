@@ -1,85 +1,3 @@
-// MonoidTests.js 0.0.1
-// ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-
-// Tests for the instances defined in `./Monoid.js'.
-
-var Monoid = require('./Monoid.js');
-
-// Laws
-// ====
-
-var laws = {
-  'Associativity': [
-    function(a, b, c) {
-      return a.concat(b).concat(c);
-    },
-    function(a, b, c) {
-      return a.concat(b.concat(c));
-    }
-  ],
-  'Left Identity': [
-    function(a) {
-      return a.concat((a.constructor.zero || a.zero)());
-    },
-    function(a) {
-      return a;
-    }
-  ],
-  'Right Identity': [
-    function(a) {
-      return (a.constructor.zero || a.zero)().concat(a);
-    },
-    function(a) {
-      return a;
-    }
-  ]
-};
-
-// Tests
-// =====
-
-// Equality
-// --------
-
-function simple(a, b) {
-  return a.value === b.value;
-}
-
-function array(a, b) {
-  if (a.length !== b.length) {
-    return false;
-  }
-  for (var i=0; i<a.length; i++) {
-    if (a[i] !== b[i])
-      return false;
-  }
-  return true;
-}
-
-// Instances
-// ---------
-
-var instances = {
-  All: {
-    constructor: Monoid.instances.All,
-    domain: [false, true],
-    check: simple
-  },
-  Any: {
-    constructor: Monoid.instances.Any,
-    domain: [false, true],
-    check: simple
-  },
-  Array: {
-    constructor: Monoid.instances.Array,
-    domain: [[1,2], [3,4]],
-    check: array
-  }
-};
-
-// Test Runners
-// ============
-
 // Create `n`-tuples of values in `domain`.
 
 function tuples(n, domain) {
@@ -132,17 +50,13 @@ function TestLaw(law, instance) {
         a.push(e.apply(undefined, tuple));
         return a;
       }, []);
-    })
-    , pass = true;
+    });
   for (var i=0; i<es.length-1; i++) {
     for (var j=0; j<es[i].length; j++) {
-      pass = pass & instance.check(es[i][j], es[i+1][j])
+      if (!instance.check(es[i][j], es[i+1][j]))
+        return ts[j];
     }
   }
-  if (pass)
-    console.log("    Pass");
-  else
-    console.log("    Fail");
 }
 
 function TestLaws(laws, instance) {
@@ -160,4 +74,24 @@ function TestInstances(laws, instances) {
   }
 }
 
-TestInstances(laws, instances);
+// TestInstances(laws, instances);
+
+function run(instance, laws) {
+  var util = require('util');
+  describe(instance.name + ':', function() {
+    for (var name in laws) {
+      (function(name) {
+        it(name, function() {
+          var refuted = TestLaw(laws[name], instance);
+          if (refuted)
+            throw new Error("Refuted for " + util.inspect(refuted) + ".");
+        });
+      })(name);
+    }
+  });
+}
+
+module.exports = {
+  testLaw: TestLaw,
+  run: run
+};

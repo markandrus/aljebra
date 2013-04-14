@@ -1,0 +1,19 @@
+{
+  "name": "aljebra",
+  "description": "Toy implementations of the algebraic structures defined in the Fantasy Land specification, mostly borrowed from Haskell libraries.",
+  "version": "0.0.1",
+  "author": "Mark Andrus Roberts <markandrusroberts@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markandrus/aljebra"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "devDependencies": {
+    "should": "*",
+    "mocha": "*"
+  },
+  "dependencies": {
+  }
+}
