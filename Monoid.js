@@ -20,7 +20,7 @@ function Monoid(zero, concat) {
   };
   MonoidInstance.prototype.constructor.zero = function() {
     return new MonoidInstance();
-  }
+  };
   return MonoidInstance;
 }
 

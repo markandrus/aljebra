@@ -6,7 +6,7 @@
 // NOTE: Trying to generalize the code here...
 
 var Monoid = require('./Monoid.js'),
-    simple = function(a, b) { return a === b; };
+    simple = function(a, b) { return JSON.stringify(a) === JSON.stringify(b); };
 
 var instances = {
   All: {
@@ -40,7 +40,7 @@ function AssociativityLaw(instance) {
           , C = new instance.constructor(instance.domain[c]);
         check = check && instance.check
           ( A.concat(B).concat(C)
-          , A.concat(b.concat(C))
+          , A.concat(B.concat(C))
           );
       }
     }
