@@ -1,8 +1,8 @@
 // Monoid.js 0.0.1
 // ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 
-// Instances borrowed from the Haskell Prelude.
-// Conforms to the Fantasy Land Specification.
+// Instances borrowed from Haskell libraries.
+// Conforms to the Fantasy Land specification.
 
 (function() {
 
