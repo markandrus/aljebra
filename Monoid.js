@@ -4,8 +4,6 @@
 // Instances borrowed from Haskell libraries.
 // Conforms to the Fantasy Land specification.
 
-(function() {
-
 // Constructor
 // ===========
 
@@ -110,5 +108,3 @@ if (typeof module !== 'undefined' && module.exports) {
       }
     };
 };
-
-}).call(this);
