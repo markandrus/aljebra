@@ -13,12 +13,12 @@
 
 function Monoid(zero, concat) {
   function MonoidInstance(a) {
-    self.value = typeof a === 'undefined' ? zero : a;
-    return self;
+    this.value = typeof a === 'undefined' ? zero : a;
+    return this;
   }
   MonoidInstance.prototype.concat = function(a) {
-    self.value = concat(self.value, a.value);
-    return self;
+    this.value = concat(this.value, a.value);
+    return this;
   };
   MonoidInstance.prototype.constructor.zero = function() {
     return new MonoidInstance();
