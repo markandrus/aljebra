@@ -6,7 +6,7 @@ var Min         = require('../../../lib/Semigroup.js').instances.Min,
 
 var instance = {
   name: 'OptionalMonoidFromSemigroup',
-  domains: {'m a': [new OptionalMin(), new OptionalMin(7), new OptionalMin(6)]},
+  domains: {'m a': [new OptionalMin(), new OptionalMin(new Min(7)), new OptionalMin(new Min(6))]},
   check: require('../../common/equality.js').simple
 };
 
