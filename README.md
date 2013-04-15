@@ -49,11 +49,11 @@ Constructors
 
 The following functions return Monoid constructors.
 
-| Function                         | Description                                                                           |
-| -------------------------------- | ------------------------------------------------------------------------------------- |
-| `Monoid(zero, concat)`           | Given value `zero` and binary function `concat`, return a Monoid constructor.         |
-| `MonoidFromSemigroup(s, zero)`   | Given Semigroup `s` and value `zero`, return a Monoid constructor.                    |
-| `OptionalMonoidFromSemigroup(s)` | Lift Semigroup `s` into `Optional` and return a constructor for the resulting Monoid. |
+| Function                       | Description                                                                           |
+| ------------------------------ | ------------------------------------------------------------------------------------- |
+| `Monoid(zero, concat)`         | Given value `zero` and binary function `concat`, return a Monoid constructor.         |
+| `MonoidFromSemigroup(s, zero)` | Given Semigroup `s` and value `zero`, return a Monoid constructor.                    |
+| `OptionalSemigroup(s)`         | Lift Semigroup `s` into `Optional` and return a constructor for the resulting Monoid. |
 
 Most of the following instance constructors can be called like so:
 
