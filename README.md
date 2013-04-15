@@ -46,6 +46,16 @@ Instances
 | Product | `1`               | `*`                  |
 | Sum     | `0`               | `+`                  |
 
+Monad
+=====
+
+Instances
+---------
+
+| Name |
+| ---- |
+| Id   |
+
 Testing
 =======
 
@@ -61,14 +71,55 @@ Before running, make sure you have installed the package (`npm install`), as the
 Running
 -------
 
-To run the tests, issue the following:
+To run the tests, issue `npm test` or `make test`. You should see something similar to the following:
 
 ~~~
-$ npm test
-~~~
+✗ make test                                               
+./node_modules/.bin/mocha -R spec test/*/instances/*.js
 
-For more information about testing, issue the following:
 
-~~~
-$ make about-testing
+  Id:
+    ✓ Associativity (Chain) 
+    ✓ Left Identity (Monad) 
+    ✓ Right Identity (Monad) 
+
+  All:
+    ✓ Associativity (Semigroup) 
+    ✓ Left Identity (Monoid) 
+    ✓ Right Identity (Monoid) 
+
+  Any:
+    ✓ Associativity (Semigroup) 
+    ✓ Left Identity (Monoid) 
+    ✓ Right Identity (Monoid) 
+
+  Array:
+    ✓ Associativity (Semigroup) (13017ms)
+    ✓ Left Identity (Monoid) (3485ms)
+    ✓ Right Identity (Monoid) (3393ms)
+
+  Endo:
+    ✓ Associativity (Semigroup) (447ms)
+    ✓ Left Identity (Monoid) (113ms)
+    ✓ Right Identity (Monoid) (115ms)
+
+  Product:
+    ✓ Associativity (Semigroup) 
+    ✓ Left Identity (Monoid) 
+    ✓ Right Identity (Monoid) 
+
+  Sum:
+    ✓ Associativity (Semigroup) 
+    ✓ Left Identity (Monoid) 
+    ✓ Right Identity (Monoid) 
+
+  Max:
+    ✓ Associativity (Semigroup) 
+
+  Min:
+    ✓ Associativity (Semigroup) 
+
+
+  23 tests complete (21 seconds)
+
 ~~~
