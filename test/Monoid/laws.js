@@ -1,15 +1,8 @@
-module.exports = {
-  'Associativity (Semigroup)': {
-    types: ['m a', 'm a', 'm a'],
-    equivalences: [
-      function(a, b, c) {
-        return a.concat(b).concat(c);
-      },
-      function(a, b, c) {
-        return a.concat(b.concat(c));
-      }
-    ]
-  },
+require('../../index.js');
+
+var SemigroupLaws = require('../Semigroup/laws.js');
+
+var MonoidLaws = SemigroupLaws.extend({
   'Left Identity (Monoid)': {
     types: ['m a'],
     equivalences: [
@@ -32,4 +25,6 @@ module.exports = {
       }
     ]
   }
-};
+});
+
+module.exports = MonoidLaws;

@@ -1,4 +1,4 @@
-module.exports = {
+var SemigroupLaws = {
   'Associativity (Semigroup)': {
     types: ['m a', 'm a', 'm a'],
     equivalences: [
@@ -11,3 +11,5 @@ module.exports = {
     ]
   }
 };
+
+module.exports = SemigroupLaws;

@@ -6,14 +6,14 @@ var Id = require('../../../lib/Monad.js').instances.Id;
 var instance = {
   name: 'Id',
   domains: {
-    'm a': [new Id(1), new Id(2)],
+    'm a': [Id.of(1), Id.of(2)],
     'a': [1, 2],
     'a -> m a': [
       function(a) {
-        return new Id(10-a);
+        return Id.of(10-a);
       },
       function(a) {
-        return new Id(5-a);
+        return Id.of(5-a);
       }
     ]
   },

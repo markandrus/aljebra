@@ -1,17 +1,8 @@
-module.exports = {
-  'Associativity (Chain)': {
-    types: ['m a', 'a -> m a', 'a -> m a'],
-    equivalences: [
-      function(m, f, g) {
-        return m.chain(f).chain(g);
-      },
-      function(m, f, g) {
-        return m.chain(function(x) {
-          return f(x).chain(g);
-        });
-      }
-    ]
-  },
+require('../../index.js');
+
+var ChainLaws = require('../Chain/laws.js');
+
+var MonadLaws = ChainLaws.extend({
   'Left Identity (Monad)': {
     types: ['m a', 'a', 'a -> m a'],
     equivalences: [
@@ -34,4 +25,6 @@ module.exports = {
       }
     ]
   }
-};
+});
+
+module.exports = MonadLaws;
