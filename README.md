@@ -13,17 +13,33 @@ Semigroup
 Constructor
 -----------
 
-* `Semigroup(concat)`
+The following functions return Semigroup constructors.
+
+| Function            | Description                                                     |
+| ------------------- | --------------------------------------------------------------- |
+| `Semigroup(concat)` | Given binary function `concat`, return a Semigroup constructor. |
+
+Most of these constructors can be called like so:
+
+~~~JavaScript
+var Semigroup = require('lib/Semigroup.js').constructor.Semigroup;
+
+var Min = new Semigroup(function(a, b) {
+  return a < b ? a : b;
+});
+
+var a = new Min(1); // Value `1` wrapped in `Min`.
+~~~
 
 Instances
 ---------
 
-| Name | `concat` |
-| ---- | -------- |
-| Max  | `>`      |
-| Min  | `<`      |
-
 _This module re-exports all Monoid instances._
+
+| Constructor | `concat` |
+| ----------- | -------- |
+| `Max`       | `>`      |
+| `Min`       | `<`      |
 
 Monoid
 ======
@@ -31,17 +47,19 @@ Monoid
 Constructors
 ------------
 
-The following functions return constructors for Monoids.
+The following functions return Monoid constructors.
 
-| Function                         | Description                                                                       |
-| -------------------------------- | --------------------------------------------------------------------------------- |
-| `Monoid(zero, concat)`           | Given value `zero` and binary function `concat`, return a Monoid constructor.     |
-| `MonoidFromSemigroup(s, zero)`   | Given a Semigroup `s` and a value `zero`, return a Monoid constructor.            |
-| `OptionalMonoidFromSemigroup(s)` | Lift a Semigroup into Optional and return a constructor for the resulting Monoid. |
+| Function                         | Description                                                                           |
+| -------------------------------- | ------------------------------------------------------------------------------------- |
+| `Monoid(zero, concat)`           | Given value `zero` and binary function `concat`, return a Monoid constructor.         |
+| `MonoidFromSemigroup(s, zero)`   | Given Semigroup `s` and value `zero`, return a Monoid constructor.                    |
+| `OptionalMonoidFromSemigroup(s)` | Lift Semigroup `s` into `Optional` and return a constructor for the resulting Monoid. |
 
-Most of these functions can be called like so:
+Most of these constructors can be called like so:
 
 ~~~JavaScript
+var Monoid = require('lib/Monoid.js').constructors.Monoid;
+
 var Any = new Monoid(false, function(a, b) {
   return a || b;
 });
@@ -53,25 +71,35 @@ var a = new Any(false), // Value `false` wrapped in `Any`.
 Instances
 ---------
 
-| Name    | `zero`            | `concat`             |
-| ------- | ----------------- | -------------------- |
-| All     | `true`            | `&&`                 |
-| Any     | `false`           | <code>││</code>      |
-| Array   | `[]`              | `concat`             |
-| Endo    | identity function | function composition |
-| Product | `1`               | `*`                  |
-| Sum     | `0`               | `+`                  |
+| Constructor | `zero`            | `concat`             |
+| ----------- | ----------------- | -------------------- |
+| `All`       | `true`            | `&&`                 |
+| `Any`       | `false`           | <code>││</code>      |
+| `Array`     | `[]`              | `concat`             |
+| `Endo`      | identity function | function composition |
+| `Product`   | `1`               | `*`                  |
+| `Sum`       | `0`               | `+`                  |
 
 Monad
 =====
 
+Constructors
+------------
+
+~~~JavaScript
+var Optional = require('lib/Monad.js').instances.Optional;
+
+var a = Optional.of(1), // Value `1` wrapped in `Optional`.
+    b = Optional.of();  // An empty `Optional`.
+~~~
+
 Instances
 ---------
 
-| Name     |
-| -------- |
-| Id       |
-| Optional |
+| Constructor |
+| ----------- |
+| `Id`        |
+| `Optional`  |
 
 Testing
 =======
