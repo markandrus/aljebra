@@ -111,6 +111,17 @@ _Note: the test suite itself has not been tested!_
 
 The test suite attempts to verify that the instances of algebraic structures defined in this library satisfy the laws defined in the [Fantasy Land specification](https://github.com/pufuwozu/fantasy-land).
 
-Before running, make sure you have installed the package (`npm install`), as the test suite relies on [Mocha](http://visionmedia.github.io/mocha/).
+Before running, make sure you have installed the package with `npm install`, as the test suite relies on [Mocha](http://visionmedia.github.io/mocha/).
 
-To run the tests, issue `npm test` or `make test`. You should see something similar to the following:
+~~~
+$ make about-testing
+Testing
+  make test               # Run all instance tests
+  make test-instances     # Run all instance tests
+  make test-noninstances  # Run all noninstance tests
+  make test-all           # Run all tests
+  make test-all-verbose   # Run all tests in verbose mode
+  make testing            # Run all tests continuosly
+~~~
+
+The test suite runs instance tests for the previously defined instances. Additionally, the test suite contains a number of "sanity checks" in the form of noninstance tests.
