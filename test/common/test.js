@@ -9,7 +9,7 @@ function tuples(n, domain) {
     if (++as[i] === b) {
       as[i] = 0;
       if (i+1 < as.length)
-        as = next(as, i+1, b)
+        as = next(as, i+1, b);
     }
     return as;
   }
