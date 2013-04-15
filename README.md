@@ -1,11 +1,11 @@
+<a href="https://github.com/pufuwozu/fantasy-land"><img src="https://raw.github.com/pufuwozu/fantasy-land/master/logo.png" align="right" alt="Fantasy Land logo" /></a>
+
 About [<img src="https://travis-ci.org/markandrus/aljebra.png">](http://travis-ci.org/#!/markandrus/aljebra)
 =====
 
 _Note: this package is unstable!_
 
 Aljebra provides toy implementations of the algebraic structures defined in the [Fantasy Land specification](https://github.com/pufuwozu/fantasy-land), mostly borrowed from [Haskell libraries](http://hackage.haskell.org/package/base).
-
-![https://github.com/pufuwozu/fantasy-land](https://raw.github.com/pufuwozu/fantasy-land/master/logo.png)
 
 Semigroup
 =========
