@@ -47,7 +47,7 @@ Functor
 Instances
 ---------
 
-_This module re-exports all Monoad instances._
+_This module re-exports all Monad instances._
 
 Monoid
 ======
