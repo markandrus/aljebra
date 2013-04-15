@@ -31,9 +31,11 @@ Monoid
 Constructors
 ------------
 
-* `Monoid(zero, concat)`
-* `MonoidFromSemigroup(semigroup, zero)`
-* `OptionalMonoidFromSemigroup(semigroup)`
+|                                  | Description                                                                       |
+| -------------------------------- | --------------------------------------------------------------------------------- |
+| `Monoid(zero, concat)`           | Given a value `zero` and binary function `concat`, return a Monoid constructor.   |
+| `MonoidFromSemigroup(s, zero)`   | Given a Semigroup `s` and a value `zero`, return a Monoid constructor.            |
+| `OptionalMonoidFromSemigroup(s)` | Lift a Semigroup into Optional and return a constructor for the resulting Monoid. |
 
 Instances
 ---------
