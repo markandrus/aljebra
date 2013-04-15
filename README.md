@@ -1,4 +1,4 @@
-About
+About [<img src="https://travis-ci.org/markandrus/aljebra.png">](http://travis-ci.org/#!/markandrus/aljebra)
 =====
 
 _Note: this package is unstable!_
