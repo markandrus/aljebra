@@ -13,13 +13,13 @@ Semigroup
 Constructor
 -----------
 
-The following functions return Semigroup constructors.
+The following function returns a Semigroup constructor.
 
 | Function            | Description                                                     |
 | ------------------- | --------------------------------------------------------------- |
 | `Semigroup(concat)` | Given binary function `concat`, return a Semigroup constructor. |
 
-Most of these constructors can be called like so:
+Most of the following instance constructors can be called like so:
 
 ~~~JavaScript
 var Semigroup = require('lib/Semigroup.js').constructor.Semigroup;
@@ -55,7 +55,7 @@ The following functions return Monoid constructors.
 | `MonoidFromSemigroup(s, zero)`   | Given Semigroup `s` and value `zero`, return a Monoid constructor.                    |
 | `OptionalMonoidFromSemigroup(s)` | Lift Semigroup `s` into `Optional` and return a constructor for the resulting Monoid. |
 
-Most of these constructors can be called like so:
+Most of the following instance constructors can be called like so:
 
 ~~~JavaScript
 var Monoid = require('lib/Monoid.js').constructors.Monoid;
@@ -113,58 +113,4 @@ The test suite attempts to verify that the instances of algebraic structures def
 
 Before running, make sure you have installed the package (`npm install`), as the test suite relies on [Mocha](http://visionmedia.github.io/mocha/).
 
-Running
--------
-
 To run the tests, issue `npm test` or `make test`. You should see something similar to the following:
-
-~~~
-✗ make test                                               
-./node_modules/.bin/mocha -R spec test/*/instances/*.js
-
-
-  Id:
-    ✓ Associativity (Chain) 
-    ✓ Left Identity (Monad) 
-    ✓ Right Identity (Monad) 
-
-  All:
-    ✓ Associativity (Semigroup) 
-    ✓ Left Identity (Monoid) 
-    ✓ Right Identity (Monoid) 
-
-  Any:
-    ✓ Associativity (Semigroup) 
-    ✓ Left Identity (Monoid) 
-    ✓ Right Identity (Monoid) 
-
-  Array:
-    ✓ Associativity (Semigroup) (13017ms)
-    ✓ Left Identity (Monoid) (3485ms)
-    ✓ Right Identity (Monoid) (3393ms)
-
-  Endo:
-    ✓ Associativity (Semigroup) (447ms)
-    ✓ Left Identity (Monoid) (113ms)
-    ✓ Right Identity (Monoid) (115ms)
-
-  Product:
-    ✓ Associativity (Semigroup) 
-    ✓ Left Identity (Monoid) 
-    ✓ Right Identity (Monoid) 
-
-  Sum:
-    ✓ Associativity (Semigroup) 
-    ✓ Left Identity (Monoid) 
-    ✓ Right Identity (Monoid) 
-
-  Max:
-    ✓ Associativity (Semigroup) 
-
-  Min:
-    ✓ Associativity (Semigroup) 
-
-
-  23 tests complete (21 seconds)
-
-~~~
