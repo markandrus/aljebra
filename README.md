@@ -41,6 +41,14 @@ _This module re-exports all Monoid instances._
 | `Max`       | `>`      |
 | `Min`       | `<`      |
 
+Functor
+=======
+
+Instances
+---------
+
+_This module re-exports all Monoad instances._
+
 Monoid
 ======
 
