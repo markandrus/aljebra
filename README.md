@@ -10,20 +10,27 @@ Aljebra provides toy implementations of the algebraic structures defined in the 
 Semigroup
 =========
 
+Constructor
+-----------
+
+* `Semigroup(concat)`
+
 Instances
 ---------
 
-* Min (TODO)
-* Max (TODO)
-* Add
-* And
-* Array
-* Mult
-* Compose
-* Mult
+* Min
+* Max
+
+This module re-exports all Monoid instances.
 
 Monoid
 ======
+
+Constructors
+------------
+
+* `Monoid(zero, concat)`
+* `MonoidFromSemigroup(semigroup, zero)`
 
 Instances
 ---------
