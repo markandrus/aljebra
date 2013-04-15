@@ -9,7 +9,7 @@ module.exports = {
   ],
   'Left Identity': [
     function(a) {
-      return a.concat((a.constructor.zero || a.zero)());
+      return (a.constructor.zero || a.zero)().concat(a);
     },
     function(a) {
       return a;
@@ -17,7 +17,7 @@ module.exports = {
   ],
   'Right Identity': [
     function(a) {
-      return (a.constructor.zero || a.zero)().concat(a);
+      return a.concat((a.constructor.zero || a.zero)());
     },
     function(a) {
       return a;
