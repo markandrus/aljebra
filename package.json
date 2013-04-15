@@ -16,7 +16,7 @@
     "url": "https://github.com/markandrus/aljebra"
   },
   "scripts": {
-    "test": "make test"
+    "test": "make test-all"
   },
   "engines": [
     "node >= .6"

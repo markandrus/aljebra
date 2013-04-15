@@ -103,4 +103,25 @@ function run(instance, laws) {
   });
 }
 
-module.exports = {run: run};
+function runNoninstance(instance, laws, typeclass) {
+  describe(instance.name + ':', function() {
+    it ('is not a ' + typeclass, function() {
+      var passed = [],
+          numLaws = 0;
+      for (var name in laws) {
+        numLaws++;
+        var passes = testLaw(laws[name], instance);
+        if (passes)
+          passed.push(name);
+      }
+      if (passed.length === numLaws)
+        throw new Error(instance.name + ' passed ' + passed.join(', ') + '.');
+    });
+  });
+}
+
+module.exports = {
+  run: run,
+  runInstance: run,
+  runNoninstance: runNoninstance
+};

@@ -1,21 +1,35 @@
 # Testing
 
-TESTER = ./node_modules/.bin/mocha -R spec
-TESTS = test/*/instances/*.js
+TESTER = ./node_modules/.bin/mocha
+INSTANCE_TESTS = test/*/instances/*.js
+NONINSTANCE_TESTS = test/*/noninstances/*.js
+ALL_TESTS = $(NONINSTANCE_TESTS) $(INSTANCE_TESTS)
 
 test:
-	$(TESTER) $(TESTS)
+	@make test-instances
 
-test-verbose:
-	$(TESTER) --reports spec $(TESTS)
+test-instances:
+	$(TESTER) -R spec $(INSTANCE_TESTS)
+
+test-noninstances:
+	$(TESTER) -R spec $(NONINSTANCE_TESTS)
+
+test-all:
+	$(TESTER) $(ALL_TESTS)
+
+test-all-verbose:
+	$(TESTER) -R spec $(ALL_TESTS)
 
 testing:
-	$(TESTER) --watch $(TESTS)
+	$(TESTER) --watch $(ALL_TESTS)
 	
 about-testing:
 	@echo "Testing"
-	@echo "  make test               # Run all tests in silent mode"
-	@echo "  make test-verbose       # Run all tests in verbose mode"
-	@echo "  make testing            # Run tests continuosly"
+	@echo "  make test               # Run all instance tests"
+	@echo "  make test-instances     # Run all instance tests"
+	@echo "  make test-noninstances  # Run all noninstance tests"
+	@echo "  make test-all           # Run all tests"
+	@echo "  make test-all-verbose   # Run all tests in verbose mode"
+	@echo "  make testing            # Run all tests continuosly"
 
-.PHONY: test test-verbose testing about-testing
+.PHONY: test test-instances test-noninstances test-all test-all-verbose testing about-testing
