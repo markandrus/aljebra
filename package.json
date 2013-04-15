@@ -18,9 +18,9 @@
   "scripts": {
     "test": "make test"
   },
-  "engines": {
+  "engines": [
     "node >= .6"
-  },
+  ],
   "devDependencies": {
     "should": "*",
     "mocha": "*"
