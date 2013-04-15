@@ -2,8 +2,8 @@ var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
 var instance = {
-  name: 'Compose',
-  constructor: require('../../../lib/Semigroup.js').instances.Compose,
+  name: 'Endo',
+  constructor: require('../../../lib/Semigroup.js').instances.Endo,
   domain: [
     function(x) {
       return x + x;

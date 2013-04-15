@@ -7,6 +7,21 @@ Aljebra provides toy implementations of the algebraic structures defined in the 
 
 ![https://github.com/pufuwozu/fantasy-land](https://raw.github.com/pufuwozu/fantasy-land/master/logo.png)
 
+Semigroup
+=========
+
+Instances
+---------
+
+* Min (TODO)
+* Max (TODO)
+* Add
+* And
+* Array
+* Mult
+* Compose
+* Mult
+
 Monoid
 ======
 

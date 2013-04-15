@@ -2,9 +2,9 @@ var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
 var instance = {
-  name: 'Add',
-  constructor: require('../../../lib/Semigroup.js').instances.Add,
-  domain: [0, 1, 2],
+  name: 'All',
+  constructor: require('../../../lib/Semigroup.js').instances.All,
+  domain: [false, true],
   check: require('../../common/equality.js').simple
 };
 
