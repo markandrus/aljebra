@@ -18,10 +18,12 @@ Constructor
 Instances
 ---------
 
-* Min
-* Max
+| Name | `concat` |
+| ---- | -------- |
+| Max  | `>`      |
+| Min  | `<`      |
 
-This module re-exports all Monoid instances.
+_This module re-exports all Monoid instances._
 
 Monoid
 ======
@@ -35,13 +37,14 @@ Constructors
 Instances
 ---------
 
-* All
-* Any
-* Array
-* Dual
-* Endo
-* Product
-* Sum
+| Name    | `zero`            | `concat`             |
+| ------- | ----------------- | -------------------- |
+| All     | `true`            | `&&`                 |
+| Any     | `false`           | `||`                 |
+| Array   | `[]`              | `concat`             |
+| Endo    | identity function | function composition |
+| Product | `1`               | `*`                  |
+| Sum     | `0`               | `+`                  |
 
 Testing
 =======
