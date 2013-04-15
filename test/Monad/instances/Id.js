@@ -1,7 +1,7 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Id = require('../../../lib/Monad.js').instances.Id;
+var Id = require('../../../lib/Functor.js').instances.Id;
 
 var instance = {
   name: 'Id',
@@ -15,7 +15,9 @@ var instance = {
       function(a) {
         return Id.of(5-a);
       }
-    ]
+    ],
+    'a -> b': [function(a) { return Number(a).toString(); }],
+    'b -> c': [function(b) { return typeof b === 'string'; }]
   },
   check: require('../../common/equality.js').simple
 };

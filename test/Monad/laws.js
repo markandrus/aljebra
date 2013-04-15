@@ -1,8 +1,9 @@
 require('../../index.js');
 
-var ChainLaws = require('../Chain/laws.js');
+var ChainLaws = require('../Chain/laws.js'),
+    FunctorLaws = require('../Functor/laws.js');
 
-var MonadLaws = ChainLaws.extend({
+var MonadLaws = ChainLaws.extend(FunctorLaws).extend({
   'Left Identity (Monad)': {
     types: ['m a', 'a', 'a -> m a'],
     equivalences: [
