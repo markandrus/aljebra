@@ -31,11 +31,24 @@ Monoid
 Constructors
 ------------
 
-|                                  | Description                                                                       |
+The following functions return constructors for Monoids.
+
+| Function                         | Description                                                                       |
 | -------------------------------- | --------------------------------------------------------------------------------- |
-| `Monoid(zero, concat)`           | Given a value `zero` and binary function `concat`, return a Monoid constructor.   |
+| `Monoid(zero, concat)`           | Given value `zero` and binary function `concat`, return a Monoid constructor.     |
 | `MonoidFromSemigroup(s, zero)`   | Given a Semigroup `s` and a value `zero`, return a Monoid constructor.            |
 | `OptionalMonoidFromSemigroup(s)` | Lift a Semigroup into Optional and return a constructor for the resulting Monoid. |
+
+Most of these functions can be called like so:
+
+~~~JavaScript
+var Any = new Monoid(false, function(a, b) {
+  return a || b;
+});
+
+var a = new Any(false), // Value `false` wrapped in `Any`.
+    b = new Any();      // Equivalent to `Any.zero()`.
+~~~
 
 Instances
 ---------
