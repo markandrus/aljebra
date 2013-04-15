@@ -33,6 +33,7 @@ Constructors
 
 * `Monoid(zero, concat)`
 * `MonoidFromSemigroup(semigroup, zero)`
+* `OptionalMonoidFromSemigroup(semigroup)`
 
 Instances
 ---------
