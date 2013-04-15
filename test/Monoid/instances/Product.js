@@ -1,10 +1,11 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
+var Product = require('../../../lib/Monoid.js').instances.Product;
+
 var instance = {
   name: 'Product',
-  constructor: require('../../../lib/Monoid.js').instances.Product,
-  domain: [0, 1, 2],
+  domains: {'m a': [new Product(0), new Product(1), new Product(2)]},
   check: require('../../common/equality.js').simple
 };
 

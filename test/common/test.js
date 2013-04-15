@@ -1,6 +1,4 @@
-// Create `n`-tuples of values in `domain`.
-
-function tuples(n, domain) {
+/*function tuples(n, domain) {
 
   // Calculate the next `n`-tuple of indices from zero to `b-1`, inclusive.
   // Returns a new `n`-tuple.
@@ -34,47 +32,61 @@ function tuples(n, domain) {
     });
   });
 
+}*/
+
+function typedTuples(n, domains) {
+
+  function next(as, i, domains) {
+    as = as.slice(0);
+    if (++as[i] === domains[i].length) {
+      as[i] = 0;
+      if (i+1 < as.length)
+        as = next(as, i+1, domains);
+    }
+    return as;
+  }
+
+  var tuple  = [],
+      tuples = [];
+
+  for (var i=0; i<n; i++)
+    tuple.push(0);
+
+  var n = domains.reduce(function(a, domain) {
+    return a * domain.length;
+  }, 1);
+
+  for (var i=0; i<n; i++) {
+    tuples.push(tuple);
+    tuple = next(tuple, 0, domains);
+  }
+
+  return tuples.map(function(tuple) {
+    for (var i=0; i<tuple.length; i++) {
+      tuple[i] = domains[i][tuple[i]];
+    }
+    return tuple;
+  });
+
 }
 
-function TestLaw(law, instance) {
-  var ts = tuples
-    ( law[0].length
-    , instance.domain
-    ).map(function(tuple) {
-      return tuple.map(function(a) {
-        return new instance.constructor(a);
-      });
-    });
-  var es = law.map(function(e) {
-      return ts.reduce(function(a, tuple) {
-        a.push(e.apply(undefined, tuple));
-        return a;
-      }, []);
-    });
-  for (var i=0; i<es.length-1; i++) {
-    for (var j=0; j<es[i].length; j++) {
+function testLaw(law, instance) {
+  var domains = [];
+  law.types.forEach(function(type) {
+    domains.push(instance.domains[type]);
+  });
+  var ts = typedTuples(law.equivalences[0].length, domains);
+  var es = law.equivalences.map(function(e) {
+    return ts.reduce(function(a, tuple) {
+      a.push(e.apply(undefined, tuple));
+      return a;
+    }, []);
+  });
+  for (var i=0; i<es.length-1; i++)
+    for (var j=0; j<es[i].length; j++)
       if (!instance.check(es[i][j], es[i+1][j]))
         return ts[j];
-    }
-  }
 }
-
-function TestLaws(laws, instance) {
-  for (var name in laws) {
-    console.log("  " + name);
-    TestLaw(laws[name], instance);
-    console.log();
-  }
-}
-
-function TestInstances(laws, instances) {
-  for (var name in instances) {
-    console.log(name);
-    TestLaws(laws, instances[name]);
-  }
-}
-
-// TestInstances(laws, instances);
 
 function run(instance, laws) {
   var util = require('util');
@@ -82,7 +94,7 @@ function run(instance, laws) {
     for (var name in laws) {
       (function(name) {
         it(name, function() {
-          var refuted = TestLaw(laws[name], instance);
+          var refuted = testLaw(laws[name], instance);
           if (refuted)
             throw new Error("Refuted for " + util.inspect(refuted) + ".");
         });
@@ -91,7 +103,4 @@ function run(instance, laws) {
   });
 }
 
-module.exports = {
-  testLaw: TestLaw,
-  run: run
-};
+module.exports = {run: run};

@@ -1,10 +1,11 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
+var Max = require('../../../lib/Semigroup.js').instances.Max;
+
 var instance = {
   name: 'Max',
-  constructor: require('../../../lib/Semigroup.js').instances.Max,
-  domain: [5, 6, 7],
+  domains: {'m a': [new Max(5), new Max(6), new Max(7)]},
   check: require('../../common/equality.js').simple
 };
 

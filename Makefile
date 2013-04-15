@@ -1,6 +1,6 @@
 # Testing
 
-TESTER = ./node_modules/.bin/mocha
+TESTER = ./node_modules/.bin/mocha -R spec
 TESTS = test/*/instances/*.js
 
 test:
