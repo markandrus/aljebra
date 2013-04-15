@@ -1,5 +1,5 @@
 module.exports = {
-  'Associativity': [
+  'Associativity (Semigroup)': [
     function(a, b, c) {
       return a.concat(b).concat(c);
     },
@@ -7,7 +7,7 @@ module.exports = {
       return a.concat(b.concat(c));
     }
   ],
-  'Left Identity': [
+  'Left Identity (Monoid)': [
     function(a) {
       return (a.constructor.zero || a.zero)().concat(a);
     },
@@ -15,7 +15,7 @@ module.exports = {
       return a;
     }
   ],
-  'Right Identity': [
+  'Right Identity (Monoid)': [
     function(a) {
       return a.concat((a.constructor.zero || a.zero)());
     },
