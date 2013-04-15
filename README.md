@@ -52,9 +52,10 @@ Monad
 Instances
 ---------
 
-| Name |
-| ---- |
-| Id   |
+| Name     |
+| -------- |
+| Id       |
+| Optional |
 
 Testing
 =======
