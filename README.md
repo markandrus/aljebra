@@ -52,6 +52,8 @@ Testing
 About
 -----
 
+_Note: the test suite itself has not been tested!_
+
 The test suite attempts to verify that the instances of algebraic structures defined in this library satisfy the laws defined in the [Fantasy Land specification](https://github.com/pufuwozu/fantasy-land).
 
 Before running, make sure you have installed the package (`npm install`), as the test suite relies on [Mocha](http://visionmedia.github.io/mocha/).
