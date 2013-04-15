@@ -40,7 +40,7 @@ Instances
 | Name    | `zero`            | `concat`             |
 | ------- | ----------------- | -------------------- |
 | All     | `true`            | `&&`                 |
-| Any     | `false`           | `\|\|`               |
+| Any     | `false`           | `&#124;&#124;`       |
 | Array   | `[]`              | `concat`             |
 | Endo    | identity function | function composition |
 | Product | `1`               | `*`                  |
