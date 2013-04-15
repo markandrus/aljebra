@@ -41,14 +41,6 @@ _This module re-exports all Monoid instances._
 | `Max`       | `>`      |
 | `Min`       | `<`      |
 
-Functor
-=======
-
-Instances
----------
-
-_This module re-exports all Monad instances._
-
 Monoid
 ======
 
@@ -87,6 +79,14 @@ Instances
 | `Endo`      | identity function | function composition |
 | `Product`   | `1`               | `*`                  |
 | `Sum`       | `0`               | `+`                  |
+
+Functor
+=======
+
+Instances
+---------
+
+_This module re-exports all Monad instances._
 
 Monad
 =====
