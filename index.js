@@ -15,14 +15,18 @@ return this;
 Object.defineProperty(Object.prototype, 'extend', {
   enumerable: false,
   value: function() {
-    var self = this;
+    var self = this,
+        extended = {};
+    for (var prop in self) {
+      extended[prop] = self[prop];
+    }
     Array.prototype.slice.call(arguments).map(function(from) {
       if (from) {
         for (var prop in from) {
-          self[prop] = from[prop];
+          extended[prop] = from[prop];
         }
       }
     });
-    return self;
+    return extended;
   }
 });
