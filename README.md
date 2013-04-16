@@ -40,6 +40,8 @@ _This module re-exports all Monoid instances._
 | Constructor               | `concat`                   | Notes
 | ------------------------- | -------------------------- | -----
 | `new Either(left, right)` | "Takes the first `right`." | Must provide either `left` or `right`.
+| `new First(a)`            | "Takes the first `a`."     |
+| `new Last(a)`             | "Takes the last `a`."      |
 | `new Max(a)`              | `>`                        |
 | `new Min(a)`              | `<`                        |
 
