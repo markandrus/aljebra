@@ -91,6 +91,10 @@ Instances
 
 _This module re-exports all Monad instances._
 
+| Constructor               | `map(f)`
+| ------------------------- | --------
+| `new Either(left, right)` | Apply `f` to `right`.
+
 Applicative
 ===========
 
@@ -115,10 +119,11 @@ var a = Optional.of(1), // Value `1` wrapped in `Optional`.
 Instances
 ---------
 
-| Constructor |
-| ----------- |
-| `Id`        |
-| `Optional`  |
+| Constructor               | `of`               | `chain`
+| ------------------------- | ------------------ | -------
+| `new Id(a)`               | `Id.of(a)`         | 
+| `new Either(left, right)` | `Either.of(right)` | "`left` short-circuits the chain."
+| `new Optional(a)`         | `Optional.of(a)`   |
 
 Testing
 =======
