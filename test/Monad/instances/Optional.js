@@ -1,7 +1,8 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Optional = require('../../../lib/Functor.js').instances.Optional;
+var Optional = require('../../../lib/Applicative.js').instances.Optional.extend(
+  require('../../../lib/Functor.js').instances.Optional);
 
 var instance = {
   name: 'Optional',
@@ -14,10 +15,15 @@ var instance = {
       },
       function(a) {
         return Optional.of(5-a);
+      },
+      function(a) {
+        return Optional.of();
       }
     ],
     'a -> b': [function(a) { return Number(a).toString(); }],
-    'b -> c': [function(b) { return typeof b === 'string'; }]
+    'b -> c': [function(b) { return typeof b === 'string'; }],
+    'm (a -> b)': [Optional.of(), Optional.of(function(a) { return Number(a).toString(); })],
+    'm (b -> c)': [Optional.of(), Optional.of(function(b) { return typeof b === 'string'; })]
   },
   check: require('../../common/equality.js').simple
 };

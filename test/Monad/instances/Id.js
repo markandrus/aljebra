@@ -1,7 +1,8 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Id = require('../../../lib/Functor.js').instances.Id;
+var Id = require('../../../lib/Applicative.js').instances.Id.extend(
+  require('../../../lib/Functor.js').instances.Id);
 
 var instance = {
   name: 'Id',
@@ -17,7 +18,9 @@ var instance = {
       }
     ],
     'a -> b': [function(a) { return Number(a).toString(); }],
-    'b -> c': [function(b) { return typeof b === 'string'; }]
+    'b -> c': [function(b) { return typeof b === 'string'; }],
+    'm (a -> b)': [Id.of(function(a) { return Number(a).toString(); })],
+    'm (b -> c)': [Id.of(function(b) { return typeof b === 'string'; })]
   },
   check: require('../../common/equality.js').simple
 };
