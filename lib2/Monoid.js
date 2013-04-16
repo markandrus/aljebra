@@ -25,7 +25,7 @@ function Dual(monoid) {
   }
   DualMonoidInstance.prototype.concat = function(a) {
     req.exactly(1, arguments);
-    var flip = monoid.prototype.concat(a, this);
+    var flip = monoid.prototype.concat.call(a, this);
     Object.defineProperty(flip, 'concat', {
       enumerable: false,
       value: DualMonoidInstance.prototype.concat

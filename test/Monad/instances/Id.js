@@ -1,8 +1,10 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Id = require('../../../lib/Applicative.js').instances.Id.extend(
-  require('../../../lib/Functor.js').instances.Id);
+//var Id = require('../../../lib/Applicative.js').instances.Id.extend(
+//  require('../../../lib/Functor.js').instances.Id);
+
+var Id = require('../../../index2.js').constructors.Id;
 
 var instance = {
   name: 'Id',

@@ -4,23 +4,23 @@ var req = require('./common.js'),
     Optional = constructors.Optional,
     Either = constructors.Either;
 
-Id.prototype.of = funtion(a) {
+Id.of = Id.prototype.of = function(a) {
   req.exactly(1, arguments);
   return new Id(a);
 };
 
-Id.prototype.chain = function(f) {
+Id.chain = Id.prototype.chain = function(f) {
   req.exactly(1, arguments)
      .type('function', f);
-  return Id.of(f(this.value));
+  return f(this.value);
 };
 
-Optional.prototype.of = function(a) {
+Optional.of = Optional.prototype.of = function(a) {
   req.exactly(1, arguments);
   return new Optional(a);
 };
 
-Optional.prototype.chain = function(f) {
+Optional.chain = Optional.prototype.chain = function(f) {
   req.exactly(1, arguments)
      .type('function', f);
   if ('value' in this)
@@ -29,12 +29,12 @@ Optional.prototype.chain = function(f) {
     return new Optional();
 };
 
-Either.prototype.of = function(a) {
+Either.of = Either.prototype.of = function(a) {
   req.exactly(1, arguments);
   return new Either('right', a);
 };
 
-Either.prototype.chain = function(f) {
+Either.chain = Either.prototype.chain = function(f) {
   req.exactly(1, arguments)
      .type('function', f);
   if ('right' in this)

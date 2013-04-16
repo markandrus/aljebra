@@ -1,14 +1,14 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-require('../../../index.js');
+// require('../../../index.js');
 
-var Either = require('../../../lib/Applicative.js').instances.Either;
+var Either = require('../../../index2.js').constructors.Either;
 
 var instance = {
   name: 'Either',
   domains: {
-    'm a': [new Either(false), Either.of(1), Either.of(2)],
+    'm a': [new Either('left', false), Either.of(1), Either.of(2)],
     'a': [1, 2],
     'a -> m a': [
       function(a) {

@@ -10,7 +10,7 @@ function Semigroup(concat) {
     return Id.apply(this, arguments);
   }
   SemigroupInstance.prototype.concat = function(a) {
-    req.exactyl(1, arguments);
+    req.exactly(1, arguments);
     return new SemigroupInstance(concat(this.value, a.value));
   };
   return SemigroupInstance;
@@ -23,7 +23,7 @@ function Dual(semigroup) {
   }
   DualSemigroupInstance.prototype.concat = function(a) {
     req.exactly(1, arguments);
-    var flip = semigroup.prototype.concat(a, this);
+    var flip = semigroup.prototype.concat.call(a, this);
     Object.defineProperty(flip, 'concat', {
       enumerable: false,
       value: DualSemigroupInstance.prototype.concat

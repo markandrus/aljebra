@@ -26,7 +26,8 @@ function Default(def) {
 }
 
 function Either(which, a) {
-  req.exactly(2, arguments);
+  req.exactly(2, arguments)
+     .type('string', which);
   if (['left', 'right'].indexOf(which) === -1)
     throw new Error('Expects either "left" or "right".');
   this[which] = a;
