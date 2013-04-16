@@ -1,7 +1,7 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Max = require('../../../lib/Semigroup.js').instances.Max;
+var Max = require('../../../lib2/Semigroup.js').instances.Max;
 
 var instance = {
   name: 'Max',

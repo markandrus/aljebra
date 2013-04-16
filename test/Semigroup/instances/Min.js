@@ -1,7 +1,7 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Min = require('../../../lib/Semigroup.js').instances.Min;
+var Min = require('../../../lib2/Semigroup.js').instances.Min;
 
 var instance = {
   name: 'Min',

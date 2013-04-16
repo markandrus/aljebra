@@ -1,7 +1,7 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var First = require('../../../lib/Semigroup.js').instances.First;
+var First = require('../../../lib2/Semigroup.js').instances.First;
 
 var instance = {
   name: 'First',

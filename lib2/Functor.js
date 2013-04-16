@@ -2,7 +2,6 @@ var req = require('./common.js'),
     constructors = require('./constructors.js'),
     Id = constructors.Id,
     Optional = constructors.Optional,
-    Default = constructors.Default,
     Either = constructors.Either;
 
 Id.prototype.map = function(f) {
@@ -33,7 +32,6 @@ module.exports = {
   instances: {
     Id: Id,
     Optional: Optional,
-    Default: Default,
     Either: Either
   }
 };
