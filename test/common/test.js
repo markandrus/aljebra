@@ -79,8 +79,8 @@ function runNoninstance(instance, laws, typeclass) {
           numLaws = 0;
       for (var name in laws) {
         numLaws++;
-        var passes = testLaw(laws[name], instance);
-        if (passes)
+        var refuted = testLaw(laws[name], instance);
+        if (!refuted)
           passed.push(name);
       }
       if (passed.length === numLaws)

@@ -1,7 +1,7 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').runNoninstance;
 
-var Semigroup  = require('../../../lib/Semigroup.js').constructor,
+var Semigroup  = require('../../../lib/Semigroup.js').constructors.Semigroup,
     Difference = new Semigroup(function(a, b) {
       return a - b;
     });
