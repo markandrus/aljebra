@@ -14,14 +14,11 @@ var ApplicativeLaws = {
     ]
   },
   'Composition (Applicative)': {
-    types: [],
+    types: ['m (b -> c)', 'm (a -> b)', 'm a'],
     equivalences: [
       function(u, v, w) {
         var a = u;
-        return a.of(function(f) { return function(g) { return function(x) { return f(g(x)); } } })
-                .ap(u)
-                .ap(v)
-                .ap(w);
+        return a.of(function(f) { return function(g) { return function(x) { return f(g(x)); } } }).ap(u).ap(v).ap(w);
       },
       function(u, v, w) {
         return u.ap(v.ap(w));
@@ -29,7 +26,7 @@ var ApplicativeLaws = {
     ]
   },
   'Homomorphism (Applicative)': {
-    types: [],
+    types: ['m a', 'a -> b', 'a'],
     equivalences: [
       function(a, f, x) {
         return a.of(f).ap(a.of(x));
@@ -40,7 +37,7 @@ var ApplicativeLaws = {
     ]
   },
   'Interchange (Applicative)': {
-    types: [],
+    types: ['m (a -> b)', 'a'],
     equivalences: [
       function(u, y) {
         var a = u;
