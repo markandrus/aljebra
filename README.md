@@ -15,10 +15,10 @@ Constructors
 
 The following function returns a Semigroup constructor.
 
-| Function            | Description                                                                                                 |
-| ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `Dual(s)`           | Given Semigroup `s`, flip the arguments of `s.concat` and return a constructor for the resulting Semigroup. |
-| `Semigroup(concat)` | Given binary function `concat`, return a Semigroup constructor.                                             |
+| Function                | Description                                                                                |
+| ----------------------- | ------------------------------------------------------------------------------------------ |
+| `new Dual(s)`           | Given Semigroup `s`, flip `s.concat` and return a constructor for the resulting Semigroup. |
+| `new Semigroup(concat)` | Given binary function `concat`, return a Semigroup constructor.                            |
 
 Most of the following instance constructors can be called like so:
 
@@ -37,10 +37,11 @@ Instances
 
 _This module re-exports all Monoid instances._
 
-| Constructor | `concat` |
-| ----------- | -------- |
-| `Max`       | `>`      |
-| `Min`       | `<`      |
+| Constructor               | `concat`                   | Notes
+| ------------------------- | -------------------------- | -----
+| `new Either(left, right)` | "Takes the first `right`." | Must provide either `left` or `right`.
+| `new Max(a)`              | `>`                        |
+| `new Min(a)`              | `<`                        |
 
 Monoid
 ======
@@ -50,12 +51,12 @@ Constructors
 
 The following functions return Monoid constructors.
 
-| Function                       | Description                                                                                           |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `Dual(m)`                      | Given Monoid `m`, flip the arguments of `m.concat` and return a constructor for the resulting Monoid. |
-| `Monoid(zero, concat)`         | Given value `zero` and binary function `concat`, return a Monoid constructor.                         |
-| `MonoidFromSemigroup(s, zero)` | Given Semigroup `s` and value `zero`, return a Monoid constructor.                                    |
-| `OptionalSemigroup(s)`         | Lift Semigroup `s` into `Optional` and return a constructor for the resulting Monoid.                 |
+| Function                           | Description
+| ---------------------------------- | -----------
+| `new Dual(m)`                      | Given Monoid `m`, flip `m.concat` and return a constructor for the resulting Monoid.
+| `new Monoid(zero, concat)`         | Given value `zero` and binary function `concat`, return a Monoid constructor.
+| `new MonoidFromSemigroup(s, zero)` | Given Semigroup `s` and value `zero`, return a Monoid constructor.
+| `new OptionalSemigroup(s)`         | Lift Semigroup `s` into `Optional` and return a constructor for the resulting Monoid.
 
 Most of the following instance constructors can be called like so:
 
@@ -73,14 +74,14 @@ var a = new Any(false), // Value `false` wrapped in `Any`.
 Instances
 ---------
 
-| Constructor | `zero`            | `concat`             |
-| ----------- | ----------------- | -------------------- |
-| `All`       | `true`            | `&&`                 |
-| `Any`       | `false`           | <code>││</code>      |
-| `Array`     | `[]`              | `concat`             |
-| `Endo`      | identity function | function composition |
-| `Product`   | `1`               | `*`                  |
-| `Sum`       | `0`               | `+`                  |
+| Constructor      | `zero`            | `concat`             | Notes
+| ---------------- | ----------------- | -------------------- | -----
+| `new All(a)`     | `true`            | `&&`                 |
+| `new Any(a)`     | `false`           | <code>││</code>      |
+| `new Array(a)`   | `[]`              | `concat`             |
+| `new Endo(a)`    | identity function | function composition | `a` must be a function from values of type `b` to `b`.
+| `new Product(a)` | `1`               | `*`                  |
+| `new Sum(a)`     | `0`               | `+`                  |
 
 Functor
 =======
