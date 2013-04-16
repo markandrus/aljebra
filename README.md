@@ -88,6 +88,11 @@ Instances
 
 _This module re-exports all Monad instances._
 
+Applicative
+===========
+
+_This module re-exports all Monad instances._
+
 Monad
 =====
 
