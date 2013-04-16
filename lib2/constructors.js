@@ -8,7 +8,7 @@ function Id(a) {
 
 function Optional(a) {
   req.atmost(1, arguments);
-  if (arguments.length === 1);
+  if (arguments.length === 1)
     this.value = a;
   return this;
 }
@@ -16,12 +16,11 @@ function Optional(a) {
 function Default(a) {
   req.exactly(1, arguments);
   function DefaultInstance() {
-    Optional.call(this, arguments);
-    if (!'value' in this)
-      this.value = a;
+    Optional.apply(this, arguments);
+    if (!('value' in this))
+      Id.call(this, a);
     return this;
   }
-  DefaultInstance.prototype = Object.create(Optional);
   return DefaultInstance;
 }
 
