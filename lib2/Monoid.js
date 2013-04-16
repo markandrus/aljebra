@@ -9,11 +9,16 @@ function Monoid(zero, concat) {
      .type('function', concat);
   var def = new Default(zero);
   function MonoidInstance() {
-    return def.apply(this, arguments);
+    def.apply(this, arguments);
+    return this;
   }
   MonoidInstance.prototype.concat = function(a) {
-    req.exactyl(1, arguments);
-    return new MonoidInstane(concat(this.value, a.value));
+    req.exactly(1, arguments);
+    return new MonoidInstance(concat(this.value, a.value));
+  };
+  MonoidInstance.prototype.zero = function() {
+    req.exactly(0, arguments);
+    return new MonoidInstance();
   };
   return MonoidInstance;
 }
@@ -32,6 +37,7 @@ function Dual(monoid) {
     });
     return flip;
   };
+  DualMonoidInstance.prototype.zero = monoid.prototype.zero;
   return DualMonoidInstance;
 }
 
@@ -47,17 +53,19 @@ var Array = new Monoid([], function(a, b) {
   return a.concat(b);
 });
 
-function id(f) {
-  req.exactly(1, arguments)
-     .type('function', f);
-  return f;
+function id(a) {
+  req.exactly(1, arguments);
+  return a;
 }
 
 function compose(f, g) {
-  req.exactyl(2, arguments)
+  req.exactly(2, arguments)
      .type('function', f)
      .type('function', g);
-  return f(g(a));
+  return function(a) {
+    req.exactly(1, arguments);
+    return f(g(a));
+  };
 }
 
 var Endo = new Monoid(id, compose);

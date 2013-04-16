@@ -1,7 +1,7 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var All = require('../../../index2.js').constructors.All;
+var All = require('../../../index2.js').Monoid.instances.All;
 
 var instance = {
   name: 'All',

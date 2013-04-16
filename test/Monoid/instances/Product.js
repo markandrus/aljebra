@@ -1,7 +1,7 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Product = require('../../../lib/Monoid.js').instances.Product;
+var Product = require('../../../index2.js').Monoid.instances.Product;
 
 var instance = {
   name: 'Product',

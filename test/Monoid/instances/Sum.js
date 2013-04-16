@@ -1,7 +1,7 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Sum = require('../../../lib/Monoid.js').instances.Sum;
+var Sum = require('../../../index2.js').Monoid.instances.Sum;
 
 var instance = {
   name: 'Sum',

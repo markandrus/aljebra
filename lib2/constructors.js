@@ -18,9 +18,10 @@ function Default(def) {
   function DefaultInstance(a) {
     req.atmost(1, arguments);
     if (arguments.length === 1)
-      return new Id(a);
+      Id.call(this, a);
     else
-      return new Id(def);
+      Id.call(this, def);
+    return this;
   }
   return DefaultInstance;
 }
