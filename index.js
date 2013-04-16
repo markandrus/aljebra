@@ -17,9 +17,8 @@ Object.defineProperty(Object.prototype, 'extend', {
   value: function() {
     var self = this,
         extended = {};
-    for (var prop in self) {
+    for (var prop in self)
       extended[prop] = self[prop];
-    }
     Array.prototype.slice.call(arguments).map(function(from) {
       if (from) {
         for (var prop in from) {

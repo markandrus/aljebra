@@ -6,6 +6,10 @@ var ApplicativeLaws = {
     equivalences: [
       function(v) {
         var a = v;
+        if (typeof v.of === 'undefined')
+          throw new Error('Object does not provide `of`.');
+        if (typeof v.ap === 'undefined')
+          throw new Error('Object does not provide `ap`.');
         return a.of(function(a) { return a; }).ap(v);
       },
       function(v) {
@@ -18,6 +22,10 @@ var ApplicativeLaws = {
     equivalences: [
       function(u, v, w) {
         var a = u;
+        if (typeof v.of === 'undefined')
+          throw new Error('Object does not provide `of`.');
+        if (typeof v.ap === 'undefined')
+          throw new Error('Object does not provide `ap`.');
         return a.of(function(f) { return function(g) { return function(x) { return f(g(x)); } } }).ap(u).ap(v).ap(w);
       },
       function(u, v, w) {
@@ -29,6 +37,10 @@ var ApplicativeLaws = {
     types: ['m a', 'a -> b', 'a'],
     equivalences: [
       function(a, f, x) {
+        if (typeof a.of === 'undefined')
+          throw new Error('Object does not provide `of`.');
+        if (typeof a.ap === 'undefined')
+          throw new Error('Object does not provide `ap`.');
         return a.of(f).ap(a.of(x));
       },
       function(a, f, x) {
@@ -41,6 +53,10 @@ var ApplicativeLaws = {
     equivalences: [
       function(u, y) {
         var a = u;
+        if (typeof a.of === 'undefined')
+          throw new Error('Object does not provide `of`.');
+        if (typeof a.ap === 'undefined')
+          throw new Error('Object does not provide `ap`.');
         return u.ap(a.of(y));
       },
       function(u, y) {
