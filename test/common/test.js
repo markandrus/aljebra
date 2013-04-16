@@ -41,7 +41,7 @@ function typedTuples(n, domains) {
 
 }
 
-function testLaw(law, instance) {
+function testLaw(law, instance, verbose) {
 
   var domains = law.types.map(function(type) { return instance.domains[type]; }),
       es      = law.equivalences,
@@ -50,20 +50,27 @@ function testLaw(law, instance) {
       ts      = tuples.length,
       m       = es.length,
       check   = instance.check;
-  for (var i=0; i<ts; i++)
-    for (var j=0; j<m-1; j++)
+  var util = require('util');
+  for (var i=0; i<ts; i++) {
+    for (var j=0; j<m-1; j++) {
+      if (verbose) {
+        console.log('Input');
+        console.log(util.inspect(tuples[i]));
+      }
       if (!check(es[j  ].apply(undefined, tuples[i]),
                  es[j+1].apply(undefined, tuples[i])))
         return tuples[i];
+    }
+  }
 }
 
-function run(instance, laws) {
+function run(instance, laws, verbose) {
   var util = require('util');
   describe(instance.name + ':', function() {
     for (var name in laws) {
       (function(name) {
         it(name, function() {
-          var refuted = testLaw(laws[name], instance);
+          var refuted = testLaw(laws[name], instance, verbose);
           if (refuted)
             throw new Error("Refuted for " + util.inspect(refuted) + ".");
         });
