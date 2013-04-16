@@ -10,14 +10,15 @@ Aljebra provides toy implementations of the algebraic structures defined in the 
 Semigroup
 =========
 
-Constructor
------------
+Constructors
+------------
 
 The following function returns a Semigroup constructor.
 
-| Function            | Description                                                     |
-| ------------------- | --------------------------------------------------------------- |
-| `Semigroup(concat)` | Given binary function `concat`, return a Semigroup constructor. |
+| Function            | Description                                                                                                 |
+| ------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `Dual(s)`           | Given Semigroup `s`, flip the arguments of `s.concat` and return a constructor for the resulting Semigroup. |
+| `Semigroup(concat)` | Given binary function `concat`, return a Semigroup constructor.                                             |
 
 Most of the following instance constructors can be called like so:
 
@@ -49,11 +50,12 @@ Constructors
 
 The following functions return Monoid constructors.
 
-| Function                       | Description                                                                           |
-| ------------------------------ | ------------------------------------------------------------------------------------- |
-| `Monoid(zero, concat)`         | Given value `zero` and binary function `concat`, return a Monoid constructor.         |
-| `MonoidFromSemigroup(s, zero)` | Given Semigroup `s` and value `zero`, return a Monoid constructor.                    |
-| `OptionalSemigroup(s)`         | Lift Semigroup `s` into `Optional` and return a constructor for the resulting Monoid. |
+| Function                       | Description                                                                                           |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `Dual(m)`                      | Given Monoid `m`, flip the arguments of `m.concat` and return a constructor for the resulting Monoid. |
+| `Monoid(zero, concat)`         | Given value `zero` and binary function `concat`, return a Monoid constructor.                         |
+| `MonoidFromSemigroup(s, zero)` | Given Semigroup `s` and value `zero`, return a Monoid constructor.                                    |
+| `OptionalSemigroup(s)`         | Lift Semigroup `s` into `Optional` and return a constructor for the resulting Monoid.                 |
 
 Most of the following instance constructors can be called like so:
 
