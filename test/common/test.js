@@ -1,91 +1,60 @@
-/*function tuples(n, domain) {
-
-  // Calculate the next `n`-tuple of indices from zero to `b-1`, inclusive.
-  // Returns a new `n`-tuple.
-  function next(as, i, b) {
-    as = as.slice(0);
-    if (++as[i] === b) {
-      as[i] = 0;
-      if (i+1 < as.length)
-        as = next(as, i+1, b);
-    }
-    return as;
-  }
-
-  // An `n`-tuple and a list of `n`-tuples.
-  var tuple  = []
-    , tuples = [];
-
-  for (var i=0; i<n; i++)
-    tuple.push(0);
-
-  // Generate all `n`-tuples of indices into `domain`.
-  for (var i=0; i<Math.pow(domain.length, n); i++) {
-    tuples.push(tuple);
-    tuple = next(tuple, 0, domain.length);
-  }
-
-  // Index into `domain`.
-  return tuples.map(function(tuple) {
-    return tuple.map(function(i) {
-      return domain[i];
-    });
-  });
-
-}*/
-
 function typedTuples(n, domains) {
 
-  function next(as, i, domains) {
-    as = as.slice(0);
-    if (++as[i] === domains[i].length) {
-      as[i] = 0;
-      if (i+1 < as.length)
-        as = next(as, i+1, domains);
-    }
-    return as;
-  }
-
-  var tuple  = [],
-      tuples = [];
-
-  for (var i=0; i<n; i++)
-    tuple.push(0);
-
-  var n = domains.reduce(function(a, domain) {
-    return a * domain.length;
-  }, 1);
-
-  for (var i=0; i<n; i++) {
-    tuples.push(tuple);
-    tuple = next(tuple, 0, domains);
-  }
-
-  return tuples.map(function(tuple) {
-    for (var i=0; i<tuple.length; i++) {
-      tuple[i] = domains[i][tuple[i]];
+  // Generate the next `tuple` (mutates `tuple`).
+  function next(tuple, i, domainLengths) {
+    if (++tuple[i] === domainLengths[i]) {
+      tuple[i] = 0;
+      if (i+1 < n)
+        tuple = next(tuple, i+1, domainLengths);
     }
     return tuple;
+  }
+
+  // Given a `tuple`, index into `domain`.
+  function transform(tuple, domains) {
+    var res = new Array(n);
+    for (var i=0; i<n; i++)
+      res[i] = domains[i][tuple[i]];
+    return res;
+  }
+
+  // Cache the lengths of the `domains`.
+  var domainLengths = domains.map(function(domain) {
+    return domain.length;
   });
+
+  // Calculate the number of `tuple`s to generate.
+  var m = domainLengths.reduce(function(a, length) {
+    return a * length;
+  }, 1);
+
+  // Initialize `tuple` and `tuples`.
+  var tuple  = new Array(n),
+      tuples = new Array(m);
+  tuple[0] = -1; for (var i=1; i<n; i++) { tuple[i] = 0; }
+
+  // Generate `tuples`.
+  for (var i=0; i<m; i++)
+    tuples[i] = transform(next(tuple, 0, domainLengths), domains);
+
+  return tuples;
 
 }
 
 function testLaw(law, instance) {
-  var domains = [];
-  law.types.forEach(function(type) {
-    domains.push(instance.domains[type]);
-  });
-  var ts = typedTuples(law.equivalences[0].length, domains);
-  var es = law.equivalences.map(function(e) {
-    return ts.reduce(function(a, tuple) {
-      a.push(e.apply(undefined, tuple));
-      return a;
-    }, []);
-  });
-  for (var i=0; i<es.length-1; i++)
-    for (var j=0; j<es[i].length; j++)
-      if (!instance.check(es[i][j], es[i+1][j]))
-        return ts[j];
+
+  var domains = law.types.map(function(type) { return instance.domains[type]; }),
+      es      = law.equivalences,
+      n       = es[0].length,
+      tuples  = typedTuples(n, domains),
+      ts      = tuples.length,
+      m       = es.length,
+      check   = instance.check;
+  for (var i=0; i<ts; i++)
+    for (var j=0; j<m-1; j++)
+      if (!check(es[j  ].apply(undefined, tuples[i]),
+                 es[j+1].apply(undefined, tuples[i])))
+        return tuples[i];
 }
 
 function run(instance, laws) {
