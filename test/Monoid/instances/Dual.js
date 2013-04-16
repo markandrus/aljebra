@@ -1,14 +1,15 @@
-// FIXME: !!!
-/*var laws = require('../laws.js')
+var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Array = require('../../../lib/Monoid.js').instances.Array;
+var Monoid    = require('../../../lib/Monoid.js'),
+    Dual      = Monoid.constructors.Dual,
+    Array     = Monoid.instances.Array,
+    DualArray = new Dual(Array);
 
 var instance = {
-  name: 'Dual Array',
-  constructor: require('../../../lib/Monoid.js').instances.Dual,
-  domain: [new Array([1, 2]), new Array([3, 4])],
+  name: 'Dual',
+  domains: {'m a': [new DualArray(new Array([1, 2])), new DualArray(new Array([3, 4]))]},
   check: require('../../common/equality.js').simple
 };
 
-run(instance, laws);*/
+run(instance, laws);
