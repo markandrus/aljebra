@@ -13,13 +13,14 @@ function Optional(a) {
   return this;
 }
 
-function Default(a) {
+function Default(def) {
   req.exactly(1, arguments);
-  function DefaultInstance() {
-    Optional.apply(this, arguments);
-    if (!('value' in this))
-      Id.call(this, a);
-    return this;
+  function DefaultInstance(a) {
+    req.atmost(1, arguments);
+    if (arguments.length === 1)
+      return new Id(a);
+    else
+      return new Id(def);
   }
   return DefaultInstance;
 }

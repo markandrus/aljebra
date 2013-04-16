@@ -1,6 +1,6 @@
 var req = {
   type: function(t, a) {
-    if (typeof t !== a)
+    if (typeof a !== t)
       throw new Error('Expects argument of type `' + t + '`.');
     return req;
   },
