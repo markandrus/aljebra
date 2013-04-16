@@ -1,13 +1,12 @@
 var laws = require('../laws.js')
   , run  = require('../../common/test.js').run;
 
-var Optional = require('../../../lib/Applicative.js').instances.Optional.extend(
-  require('../../../lib/Functor.js').instances.Optional);
+var Optional = require('../../../index2.js').constructors.Optional;
 
 var instance = {
   name: 'Optional',
   domains: {
-    'm a': [Optional.of(), Optional.of(1)],
+    'm a': [new Optional(), Optional.of(1)],
     'a': [1, 2],
     'a -> m a': [
       function(a) {
@@ -17,13 +16,13 @@ var instance = {
         return Optional.of(5-a);
       },
       function(a) {
-        return Optional.of();
+        return new Optional();
       }
     ],
     'a -> b': [function(a) { return Number(a).toString(); }],
     'b -> c': [function(b) { return typeof b === 'string'; }],
-    'm (a -> b)': [Optional.of(), Optional.of(function(a) { return Number(a).toString(); })],
-    'm (b -> c)': [Optional.of(), Optional.of(function(b) { return typeof b === 'string'; })]
+    'm (a -> b)': [new Optional(), Optional.of(function(a) { return Number(a).toString(); })],
+    'm (b -> c)': [new Optional(), Optional.of(function(b) { return typeof b === 'string'; })]
   },
   check: require('../../common/equality.js').simple
 };

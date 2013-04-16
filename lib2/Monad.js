@@ -24,7 +24,7 @@ Optional.chain = Optional.prototype.chain = function(f) {
   req.exactly(1, arguments)
      .type('function', f);
   if ('value' in this)
-    return Optional.of(f(this.value));
+    return f(this.value);
   else
     return new Optional();
 };
