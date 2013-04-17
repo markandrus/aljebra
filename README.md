@@ -7,6 +7,58 @@ _Note: this package is unstable!_
 
 Aljebra provides toy implementations of the algebraic structures defined in the [Fantasy Land specification](https://github.com/pufuwozu/fantasy-land), mostly borrowed from [Haskell libraries](http://hackage.haskell.org/package/base).
 
+~~~JavaScript
+$ node
+> require('./index.js');
+{ constructors: 
+   { Id: { [Function: Id] of: [Function], chain: [Function] },
+     Optional: { [Function: Optional] of: [Function], chain: [Function] },
+     Default: [Function: Default],
+     Either: { [Function: Either] of: [Function], chain: [Function] } },
+  Semigroup: 
+   { constructors: 
+      { Semigroup: [Function: Semigroup],
+        Dual: [Function: Dual] },
+     instances: 
+      { Either: [Object],
+        First: [Function: SemigroupInstance],
+        Last: [Function: DualSemigroupInstance],
+        Max: [Function: SemigroupInstance],
+        Min: [Function: SemigroupInstance],
+        All: [Function: MonoidInstance],
+        Any: [Function: MonoidInstance],
+        Array: [Function: MonoidInstance],
+        Endo: [Function: MonoidInstance],
+        Product: [Function: MonoidInstance],
+        Sum: [Function: MonoidInstance] } },
+  Monoid: 
+   { constructors: 
+      { Monoid: [Function: Monoid],
+        Dual: [Function: Dual] },
+     instances: 
+      { All: [Function: MonoidInstance],
+        Any: [Function: MonoidInstance],
+        Array: [Function: MonoidInstance],
+        Endo: [Function: MonoidInstance],
+        Product: [Function: MonoidInstance],
+        Sum: [Function: MonoidInstance] } },
+  Functor: 
+   { instances: 
+      { Id: [Object],
+        Optional: [Object],
+        Either: [Object] } },
+  Applicative: 
+   { instances: 
+      { Id: [Object],
+        Optional: [Object],
+        Either: [Object] } },
+  Monad: 
+   { instances: 
+      { Id: [Object],
+        Optional: [Object],
+        Either: [Object] } } }
+~~~
+
 Semigroup
 =========
 
