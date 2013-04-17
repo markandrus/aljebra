@@ -39,7 +39,7 @@ Semigroup
 | `new Max(a)`                                        | `>`
 | `new Min(a)`                                        | `<`
 
-_This module re-exports all Monoid instances._
+This module re-exports all Monoid instances.
 
 Monoid
 ------
@@ -74,14 +74,14 @@ Functor
 | `new Optional(a)` or `new Optional()`               | If the value exists, apply `f` to it.
 | `new Either('left', a)` or `new Either('right', b)` | If the value is labelled `'right'`, apply `f` to it.
 
-_This module re-exports all Applicative instances._
+This module re-exports all Applicative instances.
 
 Applicative
 -----------
 
 ### Instances
 
-_This module re-exports all Monad instances._
+This module re-exports all Monad instances.
 
 Monad
 -----
@@ -100,7 +100,7 @@ Safety
 * All of the algebraic operations defined above are pure.
 * Each constructor `freeze`s its resulting object.
 * Source code includes `'use strict'`, so attempting to mutate any of the structures throws a type error.
-* Most argument calls are annotated with helpers from `./lib/common.js`. These throw errors, for example, when arguments are of the wrong type or wrong number.
+* Most argument calls are annotated with helpers from `./lib/common.js`. These throw errors, for example, when arguments are of the wrong type or wrong number are provided.
 
 Testing
 =======
