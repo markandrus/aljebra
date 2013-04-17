@@ -1,12 +1,8 @@
-var laws = require('../laws.js')
-  , run  = require('../../common/test.js').run;
+var laws = require('../laws.js'),
+    run = require('../../common/test.js').instance.run,
+    Id = require('../../../index.js').constructors.Id;
 
-//var Id = require('../../../lib/Applicative.js').instances.Id.extend(
-//  require('../../../lib/Functor.js').instances.Id);
-
-var Id = require('../../../index2.js').constructors.Id;
-
-var instance = {
+run(laws, {
   name: 'Id',
   domains: {
     'm a': [Id.of(1), Id.of(2)],
@@ -25,6 +21,4 @@ var instance = {
     'm (b -> c)': [Id.of(function(b) { return typeof b === 'string'; })]
   },
   check: require('../../common/equality.js').simple
-};
-
-run(instance, laws);
+});

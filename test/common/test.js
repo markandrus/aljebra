@@ -64,7 +64,7 @@ function testLaw(law, instance, verbose) {
   }
 }
 
-function run(instance, laws, verbose) {
+function runInstance(laws, instance, verbose) {
   var util = require('util');
   describe(instance.name + ':', function() {
     for (var name in laws) {
@@ -79,7 +79,7 @@ function run(instance, laws, verbose) {
   });
 }
 
-function runNoninstance(instance, laws, typeclass) {
+function runNoninstance(laws, typeclass, instance) {
   describe(instance.name + ':', function() {
     it ('is not a ' + typeclass, function() {
       var passed = [],
@@ -97,7 +97,10 @@ function runNoninstance(instance, laws, typeclass) {
 }
 
 module.exports = {
-  run: run,
-  runInstance: run,
-  runNoninstance: runNoninstance
+  instance: {
+    run: runInstance
+  },
+  noninstance: {
+    run: runNoninstance
+  }
 };

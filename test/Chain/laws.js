@@ -1,4 +1,4 @@
-var ChainLaws = {
+module.exports = {
   'Associativity (Chain)': {
     types: ['m a', 'a -> m a', 'a -> m a'],
     equivalences: [
@@ -13,5 +13,3 @@ var ChainLaws = {
     ]
   }
 };
-
-module.exports = ChainLaws;

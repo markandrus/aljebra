@@ -1,12 +1,9 @@
-var laws = require('../laws.js')
-  , run  = require('../../common/test.js').run;
+var laws = require('../laws.js'),
+    run = require('../../common/test.js').instance.run,
+    Max = require('../../../index.js').Semigroup.instances.Max;
 
-var Max = require('../../../lib2/Semigroup.js').instances.Max;
-
-var instance = {
+run(laws, {
   name: 'Max',
   domains: {'m a': [new Max(5), new Max(6), new Max(7)]},
   check: require('../../common/equality.js').simple
-};
-
-run(instance, laws);
+});

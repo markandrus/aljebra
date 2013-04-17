@@ -1,7 +1,5 @@
-var laws = require('../laws.js')
-  , run  = require('../../common/test.js').runNoninstance;
-
-//var Semigroup  = require('../../../lib/Semigroup.js').constructors.Semigroup;
+var laws = require('../laws.js'),
+    run = require('../../common/test.js').noninstance.run;
 
 function RockPaperScissors(hand) {
   var hands = ['rock', 'paper', 'scissors'];
@@ -20,10 +18,8 @@ RockPaperScissors.prototype.concat = function winner(opp) {
     return new RockPaperScissors(opp.hand);
 };
 
-var instance = {
+run(laws, 'Semigroup', {
   name: 'Rock, Paper, Scissors',
   domains: {'m a': [new RockPaperScissors('rock'), new RockPaperScissors('paper'), new RockPaperScissors('scissors')]},
   check: require('../../common/equality.js').simple
-};
-
-run(instance, laws, 'Semigroup');
+});

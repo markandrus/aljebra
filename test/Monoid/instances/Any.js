@@ -1,12 +1,9 @@
-var laws = require('../laws.js')
-  , run  = require('../../common/test.js').run;
+var laws = require('../laws.js'),
+    run = require('../../common/test.js').instance.run,
+    Any = require('../../../index.js').Monoid.instances.Any;
 
-var Any = require('../../../index2.js').Monoid.instances.Any;
-
-var instance = {
+run(laws, {
   name: 'Any',
   domains: {'m a': [new Any(false), new Any(true)]},
   check: require('../../common/equality.js').simple
-};
-
-run(instance, laws);
+});

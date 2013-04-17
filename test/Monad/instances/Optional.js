@@ -1,9 +1,8 @@
-var laws = require('../laws.js')
-  , run  = require('../../common/test.js').run;
+var laws = require('../laws.js'),
+    run = require('../../common/test.js').instance.run,
+    Optional = require('../../../index.js').constructors.Optional;
 
-var Optional = require('../../../index2.js').constructors.Optional;
-
-var instance = {
+run(laws, {
   name: 'Optional',
   domains: {
     'm a': [new Optional(), Optional.of(1)],
@@ -25,6 +24,4 @@ var instance = {
     'm (b -> c)': [new Optional(), Optional.of(function(b) { return typeof b === 'string'; })]
   },
   check: require('../../common/equality.js').simple
-};
-
-run(instance, laws);
+});

@@ -1,12 +1,9 @@
-var laws = require('../laws.js')
-  , run  = require('../../common/test.js').run;
+var laws = require('../laws.js'),
+    run = require('../../common/test.js').instance.run,
+    Min = require('../../../index.js').Semigroup.instances.Min;
 
-var Min = require('../../../lib2/Semigroup.js').instances.Min;
-
-var instance = {
+run(laws, {
   name: 'Min',
   domains: {'m a': [new Min(7), new Min(6), new Min(5)]},
   check: require('../../common/equality.js').simple
-};
-
-run(instance, laws);
+});

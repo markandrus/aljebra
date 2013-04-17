@@ -1,4 +1,4 @@
-var FunctorLaws = {
+module.exports = {
   'Identity (Functor)': {
     types: ['m a'],
     equivalences: [
@@ -26,5 +26,3 @@ var FunctorLaws = {
     ]
   }
 };
-
-module.exports = FunctorLaws;

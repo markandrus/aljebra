@@ -1,11 +1,8 @@
-var laws = require('../laws.js')
-  , run  = require('../../common/test.js').run;
+var laws = require('../laws.js'),
+    run = require('../../common/test.js').instance.run,
+    Either = require('../../../index.js').constructors.Either;
 
-// require('../../../index.js');
-
-var Either = require('../../../index2.js').constructors.Either;
-
-var instance = {
+run(laws, {
   name: 'Either',
   domains: {
     'm a': [new Either('left', false), Either.of(1), Either.of(2)],
@@ -24,6 +21,4 @@ var instance = {
     'm (b -> c)': [Either.of(function(b) { return typeof b === 'string'; })]
   },
   check: require('../../common/equality.js').simple
-};
-
-run(instance, laws);
+});

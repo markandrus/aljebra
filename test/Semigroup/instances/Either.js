@@ -1,9 +1,8 @@
-var laws = require('../laws.js')
-  , run  = require('../../common/test.js').run;
+var laws = require('../laws.js'),
+    run = require('../../common/test.js').instance.run,
+    Either = require('../../../index.js').constructors.Either;
 
-var Either = require('../../../lib2/Semigroup.js').instances.Either;
-
-var instance = {
+run(laws, {
   name: 'Either',
   domains: {
     'm a': [
@@ -14,6 +13,4 @@ var instance = {
     ]
   },
   check: require('../../common/equality.js').simple
-};
-
-run(instance, laws);
+});

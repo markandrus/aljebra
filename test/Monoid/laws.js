@@ -1,8 +1,7 @@
-require('../../index.js');
+var extend = require('../../lib/common.js').extend,
+    SemigroupLaws = require('../Semigroup/laws.js');
 
-var SemigroupLaws = require('../Semigroup/laws.js');
-
-var MonoidLaws = SemigroupLaws.extend({
+module.exports = extend(SemigroupLaws, {
   'Left Identity (Monoid)': {
     types: ['m a'],
     equivalences: [
@@ -26,5 +25,3 @@ var MonoidLaws = SemigroupLaws.extend({
     ]
   }
 });
-
-module.exports = MonoidLaws;
