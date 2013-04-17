@@ -7,6 +7,6 @@ var laws = require('../laws.js'),
 
 run(laws, {
   name: 'Dual',
-  domains: {'m a': [new DualArray([1, 2]), new DualArray([3, 4])]},
+  domains: {'m a': [new DualArray(new Array([1, 2])), new DualArray(new Array([3, 4]))]},
   check: require('../../common/equality.js').simple
 });
