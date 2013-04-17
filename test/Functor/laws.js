@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   'Identity (Functor)': {
     types: ['m a'],

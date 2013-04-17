@@ -1,3 +1,5 @@
+'use strict';
+
 var laws = require('../laws.js'),
     run = require('../../common/test.js').instance.run,
     All = require('../../../index.js').Monoid.instances.All;

@@ -1,3 +1,5 @@
+'use strict';
+
 var laws = require('../laws.js'),
     run = require('../../common/test.js').instance.run,
     Product = require('../../../index.js').Monoid.instances.Product;

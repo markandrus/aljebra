@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   'Associativity (Chain)': {
     types: ['m a', 'a -> m a', 'a -> m a'],

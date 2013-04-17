@@ -1,3 +1,5 @@
+'use strict';
+
 var laws = require('../laws.js'),
     run = require('../../common/test.js').instance.run,
     Max = require('../../../index.js').Semigroup.instances.Max;

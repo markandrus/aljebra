@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   'Associativity (Semigroup)': {
     types: ['m a', 'm a', 'm a'],

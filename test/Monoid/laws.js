@@ -1,3 +1,5 @@
+'use strict';
+
 var extend = require('../../lib/common.js').extend,
     SemigroupLaws = require('../Semigroup/laws.js');
 

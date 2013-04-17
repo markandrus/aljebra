@@ -1,3 +1,5 @@
+'use strict';
+
 function typedTuples(n, domains) {
 
   // Generate the next `tuple` (mutates `tuple`).

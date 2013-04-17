@@ -3,130 +3,56 @@
 About [<img src="https://travis-ci.org/markandrus/aljebra.png">](http://travis-ci.org/#!/markandrus/aljebra)
 =====
 
-_Note: this package is unstable!_
-
 Aljebra provides toy implementations of the algebraic structures defined in the [Fantasy Land specification](https://github.com/pufuwozu/fantasy-land), mostly borrowed from [Haskell libraries](http://hackage.haskell.org/package/base).
 
-~~~JavaScript
-$ node
-> require('./index.js');
-{ constructors: 
-   { Id: { [Function: Id] of: [Function], chain: [Function] },
-     Optional: { [Function: Optional] of: [Function], chain: [Function] },
-     Default: [Function: Default],
-     Either: { [Function: Either] of: [Function], chain: [Function] } },
-  Semigroup: 
-   { constructors: 
-      { Semigroup: [Function: Semigroup],
-        Dual: [Function: Dual] },
-     instances: 
-      { Either: [Object],
-        First: [Function: SemigroupInstance],
-        Last: [Function: DualSemigroupInstance],
-        Max: [Function: SemigroupInstance],
-        Min: [Function: SemigroupInstance],
-        All: [Function: MonoidInstance],
-        Any: [Function: MonoidInstance],
-        Array: [Function: MonoidInstance],
-        Endo: [Function: MonoidInstance],
-        Product: [Function: MonoidInstance],
-        Sum: [Function: MonoidInstance] } },
-  Monoid: 
-   { constructors: 
-      { Monoid: [Function: Monoid],
-        Dual: [Function: Dual] },
-     instances: 
-      { All: [Function: MonoidInstance],
-        Any: [Function: MonoidInstance],
-        Array: [Function: MonoidInstance],
-        Endo: [Function: MonoidInstance],
-        Product: [Function: MonoidInstance],
-        Sum: [Function: MonoidInstance] } },
-  Functor: 
-   { instances: 
-      { Id: [Object],
-        Optional: [Object],
-        Either: [Object] } },
-  Applicative: 
-   { instances: 
-      { Id: [Object],
-        Optional: [Object],
-        Either: [Object] } },
-  Monad: 
-   { instances: 
-      { Id: [Object],
-        Optional: [Object],
-        Either: [Object] } } }
-~~~
+Algebraic Structures
+====================
+
+The following objects each implement a constructor allowing you to lift values into these base objects. Many of the other instances in this library are built on top of these base objects. As such, they implement a similar constructor pattern.
+
+| Constructor                                         | Description
+| --------------------------------------------------- | -----------
+| `new Id(a)`                                         | A value (Identity)
+| `new Optional()` or `new Optional(a)`               | An optional value
+| `new (new Default(a))` or `new (new Default(a))()`  | An optional with a default value
+| `new Either('left', a)` or `new Either('right', b)` | One of two types of values
+
+Note that `new Default(a)` actually returns a constructor for an `Optional` that defaults to `a`. In the following sections, such constructors-for-constructors will be listed under the heading &#8220;Constructors&#8221; and all other simple constructors will be listed under &#8220;Instances&#8221;.
 
 Semigroup
-=========
-
-Constructors
-------------
-
-The following function returns a Semigroup constructor.
-
-| Function                | Description                                                                                |
-| ----------------------- | ------------------------------------------------------------------------------------------ |
-| `new Dual(s)`           | Given Semigroup `s`, flip `s.concat` and return a constructor for the resulting Semigroup. |
-| `new Semigroup(concat)` | Given binary function `concat`, return a Semigroup constructor.                            |
-
-Most of the following instance constructors can be called like so:
-
-~~~JavaScript
-var Semigroup = require('lib/Semigroup.js').constructor.Semigroup;
-
-var Min = new Semigroup(function(a, b) {
-  return a < b ? a : b;
-});
-
-var a = new Min(1); // Value `1` wrapped in `Min`.
-~~~
-
-Instances
 ---------
+
+### Constructors
+
+| Constructor             | Description
+| ----------------------- | -----------
+| `new Semigroup(concat)` | Given associative binary function `concat`, return a Semigroup constructor.
+| `new Dual(s)`           | Given Semigroup `s`, flip `s.concat` and return a constructor for the resulting Semigroup.
+
+### Instances
+
+| Constructor                                         | `concat`
+| --------------------------------------------------- | --------
+| `new Either('left', a)` or `new Either('right', b)` | Takes the first value labelled `'right'`.
+| `new First(a)`                                      | Takes the first `a`.
+| `new Last(a)`                                       | Takes the last `a`.
+| `new Max(a)`                                        | `>`
+| `new Min(a)`                                        | `<`
 
 _This module re-exports all Monoid instances._
 
-| Constructor               | `concat`                   | Notes
-| ------------------------- | -------------------------- | -----
-| `new Either(left, right)` | "Takes the first `right`." | Must provide either `left` or `right`.
-| `new First(a)`            | "Takes the first `a`."     |
-| `new Last(a)`             | "Takes the last `a`."      |
-| `new Max(a)`              | `>`                        |
-| `new Min(a)`              | `<`                        |
-
 Monoid
-======
+------
 
-Constructors
-------------
+### Constructors
 
-The following functions return Monoid constructors.
-
-| Function                           | Description
+| Constructor                        | Description
 | ---------------------------------- | -----------
-| `new Dual(m)`                      | Given Monoid `m`, flip `m.concat` and return a constructor for the resulting Monoid.
 | `new Monoid(zero, concat)`         | Given value `zero` and binary function `concat`, return a Monoid constructor.
-| `new MonoidFromSemigroup(s, zero)` | Given Semigroup `s` and value `zero`, return a Monoid constructor.
+| `new Dual(m)`                      | Given Monoid `m`, flip `m.concat` and return a constructor for the resulting Monoid.
 | `new OptionalSemigroup(s)`         | Lift Semigroup `s` into `Optional` and return a constructor for the resulting Monoid.
 
-Most of the following instance constructors can be called like so:
-
-~~~JavaScript
-var Monoid = require('lib/Monoid.js').constructors.Monoid;
-
-var Any = new Monoid(false, function(a, b) {
-  return a || b;
-});
-
-var a = new Any(false), // Value `false` wrapped in `Any`.
-    b = new Any();      // Equivalent to `Any.zero()`.
-~~~
-
-Instances
----------
+### Instances
 
 | Constructor      | `zero`            | `concat`             | Notes
 | ---------------- | ----------------- | -------------------- | -----
@@ -138,54 +64,48 @@ Instances
 | `new Sum(a)`     | `0`               | `+`                  |
 
 Functor
-=======
+-------
 
-Instances
----------
+### Instances
 
-_This module re-exports all Monad instances._
+| Instance                                            | `map(f)`
+| --------------------------------------------------- | --------
+| `new Id(a)`                                         | Apply `f` to the value.
+| `new Optional(a)` or `new Optional()`               | If the value exists, apply `f` to it.
+| `new Either('left', a)` or `new Either('right', b)` | If the value is labelled `'right'`, apply `f` to it.
 
-| Constructor               | `map(f)`
-| ------------------------- | --------
-| `new Either(left, right)` | Apply `f` to `right`.
+_This module re-exports all Applicative instances._
 
 Applicative
-===========
+-----------
 
-Instances
----------
+### Instances
 
 _This module re-exports all Monad instances._
 
 Monad
-=====
+-----
 
-Constructors
-------------
+### Instances
 
-~~~JavaScript
-var Optional = require('lib/Monad.js').instances.Optional;
+| Constructor                                         | `of`                     | `chain`
+| --------------------------------------------------- | ------------------------ | -------
+| `new Id(a)`                                         | `new Id(a)`              |
+| `new Optional(a)`                                   | `new Optional(a)`        |
+| `new Either('left', a)` or `new Either('right', b)` | `new Either('right', a)` | A value labelled `'left'` short-circuits the chain.
 
-var a = Optional.of(1), // Value `1` wrapped in `Optional`.
-    b = Optional.of();  // An empty `Optional`.
-~~~
+Safety
+======
 
-Instances
----------
-
-| Constructor               | `of`               | `chain`
-| ------------------------- | ------------------ | -------
-| `new Id(a)`               | `Id.of(a)`         | 
-| `new Either(left, right)` | `Either.of(right)` | "`left` short-circuits the chain."
-| `new Optional(a)`         | `Optional.of(a)`   |
+* All of the algebraic operations defined above are pure.
+* Each constructor `freeze`s its resulting object.
+* Source code includes `'use strict'`, so attempting to mutate any of the structures throws a type error.
+* Most argument calls are annotated with helpers from `./lib/common.js`. These throw errors, for example, when arguments are of the wrong type or wrong number.
 
 Testing
 =======
 
-About
------
-
-_Note: the test suite itself has not been tested!_
+_Note: the test suite itself could be better tested!_
 
 The test suite attempts to verify that the instances of algebraic structures defined in this library satisfy the laws defined in the [Fantasy Land specification](https://github.com/pufuwozu/fantasy-land).
 

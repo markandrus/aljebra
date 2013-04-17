@@ -1,3 +1,5 @@
+'use strict';
+
 var laws = require('../laws.js'),
     run  = require('../../common/test.js').instance.run,
     Min = require('../../../index.js').Semigroup.instances.Min,

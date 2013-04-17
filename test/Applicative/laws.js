@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   'Identity (Applicative)': {
     types: ['m a'],

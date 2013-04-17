@@ -1,3 +1,5 @@
+'use strict';
+
 var extend = require('../../lib/common.js').extend,
     FunctorLaws = require('../Functor/laws.js'),
     ApplicativeLaws = require('../Applicative/laws.js'),
