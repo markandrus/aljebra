@@ -91,8 +91,8 @@ Monad
 | Constructor                                         | `of`                     | `chain`
 | --------------------------------------------------- | ------------------------ | -------
 | `new Id(a)`                                         | `new Id(a)`              |
-| `new Optional(a)`                                   | `new Optional(a)`        |
-| `new Either('left', a)` or `new Either('right', b)` | `new Either('right', a)` | A value labelled `'left'` short-circuits the chain.
+| `new Optional(a)`                                   | `new Optional(a)`        | A missing value short-circuits the chain.
+| `new Either('left', a)` or `new Either('right', b)` | `new Either('right', a)` | A `'left'` vale short-circuits the chain.
 
 Safety
 ======
