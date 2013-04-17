@@ -107,7 +107,7 @@ Testing
 
 _Note: the test suite itself could be better tested!_
 
-The test suite attempts to verify that the instances of algebraic structures defined in this library satisfy the laws defined in the [Fantasy Land specification](https://github.com/pufuwozu/fantasy-land).
+The test suite attempts to verify that the instances of algebraic structures defined in this library satisfy the laws defined in the [Fantasy Land specification](https://github.com/pufuwozu/fantasy-land). Additionally, it includes a number of noninstance "sanity checks".
 
 Before running, make sure you have installed the package with `npm install`, as the test suite relies on [Mocha](http://visionmedia.github.io/mocha/).
 
@@ -122,4 +122,35 @@ Testing
   make testing            # Run all tests continuosly
 ~~~
 
-The test suite runs instance tests for the previously defined instances. Additionally, the test suite contains a number of "sanity checks" in the form of noninstance tests.
+Instance Tests
+--------------
+
+### Example
+
+~~~
+  Id:
+    ✓ Identity (Functor) 
+    ✓ Composition (Functor) 
+    ✓ Identity (Applicative) 
+    ✓ Composition (Applicative) 
+    ✓ Homomorphism (Applicative) 
+    ✓ Interchange (Applicative) 
+    ✓ Associativity (Chain) 
+    ✓ Left Identity (Monad) 
+    ✓ Right Identity (Monad) 
+
+~~~
+
+Noninstance Tests
+-----------------
+
+### Example
+
+~~~
+  Difference:
+    ✓ is not a Semigroup 
+
+  Rock, Paper, Scissors:
+    ✓ is not a Semigroup 
+
+~~~
