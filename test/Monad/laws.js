@@ -21,10 +21,6 @@ module.exports = extend(FunctorLaws, ApplicativeLaws, ChainLaws, {
     types: ['m a'],
     equivalences: [
       function(m) {
-        if (typeof m.of !== 'function')
-          throw new Error('Object does not provide `of`.');
-        if (typeof m.chain !== 'function')
-          throw new Error('Object does not provide `chain`.');
         return m.chain(m.of);
       },
       function(m) {
