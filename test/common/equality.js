@@ -13,10 +13,22 @@ module.exports = {
     console.log();
     return JSON.stringify(a) === JSON.stringify(b);
   },
-  cont: function(a, b) {
-    function id(a) {
-      return a;
+  /* NOTE: This is unnecessary for the types of Cont written so far, but when we
+     get to Node callbacks, it will be useful. */
+  cont: function(a, b, complete, error) {
+    var counter = 2,
+        results = [];
+    function callback(a) {
+      counter--;
+      results.push(a);
+      if (counter === 0) {
+        if (JSON.stringify(results[0]) === JSON.stringify(results[1]))
+          complete();
+        else
+          error(instance);
+      }
     }
-    return JSON.stringify(a.next(id)) === JSON.stringify(b.next(id));
+    a.next(callback);
+    b.next(callback);
   }
 };

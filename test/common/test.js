@@ -43,7 +43,7 @@ function typedTuples(n, domains) {
 
 }
 
-function testLaw(law, instance, verbose) {
+function testLaw(law, instance, verbose, done, error) {
 
   var domains = law.types.map(function(type) { return instance.domains[type]; }),
       es      = law.equivalences,
@@ -53,14 +53,22 @@ function testLaw(law, instance, verbose) {
       m       = es.length,
       check   = instance.check;
   var util = require('util');
+  var incomplete = ts * (m-1);
+  function complete() {
+    incomplete--;
+    if (incomplete === 0)
+      done();
+  }
+  function errorInstance(i) {
+    return function() {
+      error(tuples[i]);
+    };
+  }
   for (var i=0; i<ts; i++) {
     for (var j=0; j<m-1; j++) {
-      if (verbose) {
-        console.log('Input');
-        console.log(util.inspect(tuples[i]));
-      }
       if (!check(es[j  ].apply(undefined, tuples[i]),
-                 es[j+1].apply(undefined, tuples[i])))
+                 es[j+1].apply(undefined, tuples[i]), complete, errorInstance(i)) &&
+           typeof done === 'undefined')
         return tuples[i];
     }
   }
@@ -71,11 +79,21 @@ function runInstance(laws, instance, verbose) {
   describe(instance.name + ':', function() {
     for (var name in laws) {
       (function(name) {
-        it(name, function() {
-          var refuted = testLaw(laws[name], instance, verbose);
-          if (refuted)
-            throw new Error("Refuted for " + util.inspect(refuted) + ".");
-        });
+        if (instance.async === true)
+          it(name, function(done) {
+            testLaw(laws[name], instance, verbose, done, function(refuted) {
+              throw new Error("Refuted for " + util.inspect(refuted) + ".");
+            });
+            /*var refuted = testLaw(laws[name], instance, verbose, done);
+            if (refuted)
+              throw new Error("Refuted for " + util.inspect(refuted) + ".");*/
+          });
+        else
+          it(name, function() {
+            var refuted = testLaw(laws[name], instance, verbose);
+            if (refuted)
+              throw new Error("Refuted for " + util.inspect(refuted) + ".");
+          });
       })(name);
     }
   });

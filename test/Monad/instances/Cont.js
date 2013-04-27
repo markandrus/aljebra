@@ -35,8 +35,9 @@ run(laws, {
     ],
     'a -> b': [a_to_b_1, a_to_b_2],
     'b -> c': [b_to_c_1, b_to_c_2],
-    'm (a -> b)': [new Cont(a_to_b_1), new Cont(a_to_b_2)],
-    'm (b -> c)': [new Cont(b_to_c_1), new Cont(b_to_c_2)]
+    'm (a -> b)': [Cont.of(a_to_b_1), Cont.of(a_to_b_2)],
+    'm (b -> c)': [Cont.of(b_to_c_1), Cont.of(b_to_c_2)]
   },
+  async: true,
   check: require('../../common/equality.js').cont
 });
