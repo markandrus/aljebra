@@ -12,5 +12,11 @@ module.exports = {
     console.log(util.inspect(b));
     console.log();
     return JSON.stringify(a) === JSON.stringify(b);
+  },
+  cont: function(a, b) {
+    function id(a) {
+      return a;
+    }
+    return JSON.stringify(a.next(id)) === JSON.stringify(b.next(id));
   }
 };
