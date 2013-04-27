@@ -15,7 +15,8 @@ The following objects each implement a constructor allowing you to lift values i
 | `new Id(a)`                                         | A value (Identity)
 | `new Optional()` or `new Optional(a)`               | An optional value
 | `new (new Default(a))` or `new (new Default(a))()`  | An optional with a default value
-| `new Either('left', a)` or `new Either('right', b)` | One of two types of values
+| `new Either('left', a)`, `Left(a)`, `new Either('right', b)`, or `Right(b)` | One of two types of values
+| `new Cont(f)`                                       | A continuation or callback (`f` must return a new `Cont`)
 
 Note that `new Default(a)` actually returns a constructor for an `Optional` that defaults to `a`. In the following sections, such constructors-for-constructors will be listed under the heading &#8220;Constructors&#8221; and all other simple constructors will be listed under &#8220;Instances&#8221;.
 
@@ -72,7 +73,8 @@ Functor
 | --------------------------------------------------- | --------
 | `new Id(a)`                                         | Apply `f` to the value.
 | `new Optional(a)` or `new Optional()`               | If the value exists, apply `f` to it.
-| `new Either('left', a)` or `new Either('right', b)` | If the value is labelled `'right'`, apply `f` to it.
+| `new Either('left', a)`, `Left(a)`, `new Either('right', b)`, or `Right(b)` | If the value is labelled `'right'`, apply `f` to it.
+| `new Cont(f)`                                       |
 
 This module re-exports all Applicative instances.
 
@@ -92,7 +94,8 @@ Monad
 | --------------------------------------------------- | ------------------------ | -------
 | `new Id(a)`                                         | `new Id(a)`              |
 | `new Optional(a)`                                   | `new Optional(a)`        | A missing value short-circuits the chain.
-| `new Either('left', a)` or `new Either('right', b)` | `new Either('right', a)` | A `'left'` vale short-circuits the chain.
+| `new Either('left', a)`, `Left(a)`, `new Either('right', b)`, or `Right(b)` | `new Either('right', a)` | A `'left'` vale short-circuits the chain.
+| `new Cont(f)`                                       |                          |
 
 Safety
 ======
