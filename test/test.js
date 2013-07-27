@@ -64,7 +64,7 @@ function _laws(constructors, dictionary) {
         return tuplesFrom(mas).map(function(tuple) {
           var m = tuple[0];
           return [
-            dictionary.zero().concat(m),
+            dictionary.empty().concat(m),
             m
           ];
         });
@@ -73,7 +73,7 @@ function _laws(constructors, dictionary) {
         return tuplesFrom(mas).map(function(tuple) {
           var m = tuple[0];
           return [
-            m.concat(dictionary.zero),
+            m.concat(dictionary.empty()),
             m
           ];
         });
