@@ -1,3 +1,5 @@
+'use strict';
+
 var Identity = require('../../lib/index.js').Data.Identity,
     test = require('../test.js');
 
