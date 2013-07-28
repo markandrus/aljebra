@@ -139,8 +139,10 @@ function _laws(constructors, dictionary) {
     },
     'Chain': {
       'Associativity': function() {
-        return tuplesFrom(mas, fs, gs).map(function(tuple) {
-          var ma = tuple[0], f = tuple[1], g = tuple[2];
+        return tuplesFrom(mas, [a2b], [b2c]).map(function(tuple) {
+          var ma = tuple[0],
+              f = function(a) { return dictionary.of(tuple[1](a)); },
+              g = function(b) { return dictionary.of(tuple[2](b)); };
           return [
             ma.chain(f).chain(g),
             ma.chain(function(a) { return f(a).chain(g); })
@@ -150,8 +152,8 @@ function _laws(constructors, dictionary) {
     },
     'Monad': {
       'Left Identity': function() {
-        return tuplesFrom(fs).map(function(tuple) {
-          var f = tuple[1];
+        return tuplesFrom([a2b]).map(function(tuple) {
+          var f = function(a) { return dictionary.of(tuple[0](a)); };
           return [
             dictionary.of(a).chain(f),
             f(a)
