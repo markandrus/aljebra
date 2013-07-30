@@ -1,5 +1,39 @@
 var assert = require('assert');
 
+function naturalLTE(n) {
+  return parseInt(Math.random() * n);
+}
+
+function randomChar() {
+  return String.fromCharCode(randomInt(94) + 32);
+}
+
+function randomString(n) {
+  var string = '';
+  while (n-- !== 0)
+    string += randomChar();
+  return string;
+}
+
+function elementsOf(type) {
+  var elements = [], i=0;
+  switch (type) {
+    case Boolean:
+      return [true, false];
+    case String:
+      for (; i<10; i++)
+        elements.push(randomString(naturalLTE(10)));
+      break;
+    case Number:
+      for (; i<10; i++);
+        elements.push(naturalLTE(10));
+      break;
+    default:
+      throw new TypeError('Unsupported type.');
+  }
+  return elements;
+}
+
 function tuplesFrom() {
   var vs = arguments, ts = [],
       t = Array.prototype.map.call(arguments, function() { return 0; });
@@ -54,11 +88,27 @@ function a2b(a) {
 // Laws
 // ----
 
-function _laws(constructors, dictionary) {
+function _laws(constructors, dictionary, types) {
   var of  = dictionary.of,
-      a   = 'Jello World',
-      mas = constructors.map(function(c) { return c(a); });
+      as  = (types && types.a) ? elementsOf(types.a) : ['Jello World'],
+      mas = [];
+  constructors.forEach(function(c) { 
+    mas = mas.concat(as.map(function(a) {
+      return c(a);
+    }));
+  });
   return {
+    'Semigroup': {
+      'Associativity': function() {
+        return tuplesFrom(mas, mas, mas).map(function(tuple) {
+          var a = tuple[0], b = tuple[1], c = tuple[2];
+          return [
+            a.concat(b).concat(c),
+            a.concat(b.concat(c))
+          ];
+        });
+      }
+    },
     'Monoid': {
       'Left Identity': function() {
         return tuplesFrom(mas).map(function(tuple) {
@@ -119,8 +169,8 @@ function _laws(constructors, dictionary) {
         });
       },
       'Homomorphism': function() {
-        return tuplesFrom([a2b]).map(function(tuple) {
-          var f = tuple[0];
+        return tuplesFrom([a2b], as).map(function(tuple) {
+          var f = tuple[0], a = tuple[1];
           return [
             dictionary.of(f).ap(dictionary.of(a)),
             dictionary.of(f(a))
@@ -128,8 +178,8 @@ function _laws(constructors, dictionary) {
         });
       },
       'Interchange': function() {
-        return tuplesFrom([a2b]).map(function(tuple) {
-          var u = dictionary.of(tuple[0]);
+        return tuplesFrom([a2b], as).map(function(tuple) {
+          var u = dictionary.of(tuple[0]), a = tuple[1];
           return [
             u.ap(dictionary.of(a)),
             dictionary.of(function(f) { return f(a); }).ap(u)
@@ -152,8 +202,9 @@ function _laws(constructors, dictionary) {
     },
     'Monad': {
       'Left Identity': function() {
-        return tuplesFrom([a2b]).map(function(tuple) {
-          var f = function(a) { return dictionary.of(tuple[0](a)); };
+        return tuplesFrom([a2b], as).map(function(tuple) {
+          var f = function(a) { return dictionary.of(tuple[0](a)); },
+              a = tuple[1];
           return [
             dictionary.of(a).chain(f),
             f(a)
@@ -176,13 +227,13 @@ function _laws(constructors, dictionary) {
 function test(opts) {
   describe(opts.name, function() {
     opts.laws.forEach(function(typeclass) {
-      describe(typeclass + ':', function() {
-        var laws = _laws(opts.constructors, opts.dictionary)[typeclass];
+      describe(typeclass, function() {
+        var laws = _laws(opts.constructors, opts.dictionary, opts.types)[typeclass];
         for (var name in laws) {
           var law = laws[name];
           /* Asynchronous equivalence test. */
           if (opts.equals.length === 3)
-            it('should satisfy ' + name, function(done) {
+            it(name, function(done) {
               law().forEach(function(results) {
                 for (var i=0; i < results.length-1; i++)
                   opts.equals(function(equal) {
@@ -192,7 +243,7 @@ function test(opts) {
             });
           /* Synchronous equivalence test. */
           else
-            it('should satisfy ' + name, function() {
+            it(name, function() {
               law().forEach(function(results) {
                 for (var i=0; i < results.length-1; i++)
                   assert(opts.equals(results[i], results[i+1]));

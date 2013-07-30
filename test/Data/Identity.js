@@ -5,7 +5,7 @@ var Identity = require('../../lib/index.js').Data.Identity,
 
 test({
   name: 'Identity',
-  laws: ['Functor', 'Applicative', 'Monad'],
+  laws: ['Functor', 'Applicative', 'Chain', 'Monad'],
   constructors: [Identity],
   dictionary: Identity,
   equals: function(a, b) {

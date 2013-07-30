@@ -1,9 +1,11 @@
+'use strict';
+
 var Cont = require('../../lib/index.js').Data.Cont,
     test = require('../test.js');
 
 test({
   name: 'Cont',
-  laws: ['Functor', 'Applicative', 'Monad'],
+  laws: ['Functor', 'Applicative', 'Chain', 'Monad'],
   constructors: [Cont.of],
   dictionary: Cont,
   equals: function(done, a, b) {

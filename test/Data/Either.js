@@ -1,9 +1,11 @@
+'use strict';
+
 var Either = require('../../lib/index.js').Data.Either,
     test = require('../test.js');
 
 test({
   name: 'Either',
-  laws: ['Functor', 'Applicative', 'Monad'],
+  laws: ['Functor', 'Applicative', 'Chain', 'Monad'],
   constructors: [Either.Left, Either.Right],
   dictionary: Either,
   equals: function(a, b) {

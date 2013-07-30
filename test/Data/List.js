@@ -5,7 +5,7 @@ var List = require('../../lib/index.js').Data.List,
 
 test({
   name: 'List',
-  laws: ['Monoid', 'Functor', 'Applicative', 'Monad'],
+  laws: ['Monoid', 'Functor', 'Applicative', 'Chain', 'Monad'],
   constructors: [List.of],
   dictionary: List,
   equals: function(ma, mb) {

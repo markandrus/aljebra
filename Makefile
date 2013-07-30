@@ -1,5 +1,5 @@
 TESTER = ./node_modules/.bin/mocha
-TESTS = ./test/*/*.js
+TESTS = ./test/*/*.js ./test/*/*/*.js
 
 test:
 	$(TESTER) $(TESTS)

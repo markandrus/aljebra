@@ -1,9 +1,11 @@
+'use strict';
+
 var Maybe = require('../../lib/index.js').Data.Maybe,
     test = require('../test.js');
 
 test({
   name: 'Maybe',
-  laws: ['Functor', 'Applicative', 'Monad'],
+  laws: ['Functor', 'Applicative', 'Chain', 'Monad'],
   constructors: [Maybe.Just, Maybe.Nothing],
   dictionary: Maybe,
   equals: function(a, b) {
